@@ -33,9 +33,10 @@
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="{{url("/shop")}}">Shop</a>
-                        @foreach($categories as $c)
-                        <a class="dropdown-item" href="{{url("/category",["category"=>$c->slug])}}">{{$c->name}}</a>
-                        @endforeach
+                        <a class="dropdown-item" href="{{url("/favoriteslist")}}">favoriteslist</a>
+                        <a class="dropdown-item" href="{{url("/detail")}}">Single Product</a>
+                        <a class="dropdown-item" href="{{url("/cart")}}">Cart</a>
+                        <a class="dropdown-item" href="{{url("/checkout")}}">Checkout</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="{{url("/about")}}" class="nav-link">About</a></li>
