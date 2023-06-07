@@ -22,7 +22,7 @@ Route::get('/contact',[\App\Http\Controllers\WebController::class,"contact"]);
 Route::get('/cart',[\App\Http\Controllers\WebController::class,"cart"]);
 Route::get('/productDelete/{product}',[\App\Http\Controllers\WebController::class,"productDelete"]);
 Route::get("/add-to-cart/{product}",[\App\Http\Controllers\WebController::class,"addToCart"]);
-Route::get('/wishlist',[\App\Http\Controllers\WebController::class,"wishlist"]);
+Route::get('/favoriteslist',[\App\Http\Controllers\WebController::class,"favoriteslist"]);
+Route::get("/add-to-like/{product}",[\App\Http\Controllers\WebController::class,"addlike"]);
 Route::get('/detail/{product:slug}',[\App\Http\Controllers\WebController::class,"detail"]);
 Route::get('/checkout',[\App\Http\Controllers\WebController::class,"checkout"]);
-

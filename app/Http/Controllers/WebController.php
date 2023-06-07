@@ -11,8 +11,10 @@ class WebController extends Controller
 {
     public function home(){
         $products = Product::paginate(8);
+        $categories = Category::all();
         return view("home",[
-            "products"=>$products
+            "products"=>$products,
+            "categories"=>$categories
         ]);
     }
 
@@ -99,8 +101,25 @@ class WebController extends Controller
         }
     }
 
-    public function wishlist(){
-        return view("wishlist");
+    public function favoriteslist(){
+        $products = session()->has("favoriteslist")?session()->get("favoriteslist"):[];
+        $categories = Category::limit(10)->get();
+        return view("favoriteslist",[
+            "products"=>$products,
+            "categories"=>$categories,
+        ]);
+    }
+    public function addlike(Product $product,Request $request){
+        $favoriteslist = session()->has("favoriteslist")?session()->get("favoriteslist"):[];
+        foreach ($favoriteslist as $item){
+            if($item->id == $product->id){
+                session(["favoriteslist"=>$favoriteslist]);
+                return redirect()->to("/favoriteslist");
+            }
+        }
+        $favoriteslist[] = $product;
+        session(["favoriteslist"=>$favoriteslist]);
+        return redirect()->to("/favoriteslist");
     }
 
     public function detail(Product $product){
