@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-
+    @if(count($products)>0)
     <section class="ftco-section ftco-cart">
         <div class="container">
             <div class="row">
@@ -25,52 +25,37 @@
                                 <th>Product name</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
+                                <th>Discount</th>
                                 <th>Total</th>
                             </tr>
                             </thead>
+
+                            @foreach($products as $item)
                             <tbody>
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 
-                                <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
+                            <tr class="text-center">
+                                <td class="product-remove"><a href="{{url("/productDelete",["product"=>$item->id])}}"><span class="ion-ios-close"></span></a></td>
+
+                                <td class="image-prod"><div class="img" style="background-image:url({{$item->thumbnail}});"></div></td>
 
                                 <td class="product-name">
-                                    <h3>Bell Pepper</h3>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
+                                    <h3>{{$item->name}}</h3>
+{{--                                    <p>{{$item->description}}</p>--}}
                                 </td>
 
-                                <td class="price">$4.90</td>
+                                <td class="price">${{$item->price}}</td>
 
                                 <td class="quantity">
                                     <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                                        <input type="text" name="quantity" class="quantity form-control input-number" value="{{$item->buy_qty}}">
                                     </div>
                                 </td>
+                                <td class="discount"><b style="color: #0cda9c">{{$item->discount}}%</b></td>
 
-                                <td class="total">$4.90</td>
-                            </tr><!-- END TR-->
-
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-                                <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
-
-                                <td class="product-name">
-                                    <h3>Bell Pepper</h3>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                </td>
-
-                                <td class="price">$15.70</td>
-
-                                <td class="quantity">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                </td>
-
-                                <td class="total">$15.70</td>
-                            </tr><!-- END TR-->
+                                <td class="total"><b style="color: #a10a0a">${{($item->price-($item->price*$item->discount/100))* $item->buy_qty}}</b></td>
+                            </tr>
                             </tbody>
+                            @endforeach
                         </table>
                     </div>
                 </div>
@@ -81,27 +66,33 @@
                         <h3>Cart Totals</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
-                            <span>$20.60</span>
+                            <span>${{$total}}</span>
                         </p>
                         <p class="d-flex">
                             <span>Delivery</span>
+                            @if($total>100)
                             <span>$0.00</span>
-                        </p>
-                        <p class="d-flex">
-                            <span>Discount</span>
-                            <span>$3.00</span>
+                            @else
+                                <span>$5.00</span>
+                            @endif
                         </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span>$17.60</span>
+                            <span>${{$total}}</span>
                         </p>
                     </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                    <p><a href="{{"/checkout"}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
                 </div>
             </div>
         </div>
     </section>
-
+    @else
+        <section class="shoping-cart spad">
+            <div style="margin-top: 100px;margin-bottom:100px;text-align: center" class="container">
+                <p>Không có sản phẩm nào trong giỏ hàng!</p>
+            </div>
+        </section>
+    @endif
 @endsection
 

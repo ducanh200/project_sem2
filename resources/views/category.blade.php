@@ -1,16 +1,23 @@
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center mb-3 pb-3">
-            <div class="col-md-12 heading-section text-center ftco-animate">
-                <span class="subheading">Featured Products</span>
-                <h2 class="mb-4">Our featured products</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+@extends("layout.layout")
+@section("main")
+
+    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Single</span></p>
+                    <h1 class="mb-0 bread">{{$category->name}}</h1>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            @foreach($products as $item)
+
+
+
+    @include("html.shop.type")
+
+    <div style="width: 1000px;margin: auto" class="row">
+        @foreach($products as $item)
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
                     <a href="#" class="img-prod"><img class="img-fluid" src="{{$item->thumbnail}}" alt="Colorlib Template">
@@ -18,7 +25,7 @@
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">{{$item->name}}</a></h3>
+                        <h3><a href="{{url("/detail",["product"=>$item->slug])}}">{{$item->name}}</a></h3>
                         <div class="d-flex">
                             <div class="pricing">
                                 <p class="price"><span class="mr-2 price-dc">${{$item->price}}</span><span class="price-sale">${{($item->price-($item->price*$item->discount/100))}}</span></p>
@@ -40,8 +47,13 @@
                     </div>
                 </div>
             </div>
-            @endforeach
-        </div>
+        @endforeach
+
+    </div>
+    <div style="margin-left: 33%">
+        {!! $products->appends(app("request")->input())->links("pagination::bootstrap-4") !!}
     </div>
 
-</section>
+        @endsection
+
+
