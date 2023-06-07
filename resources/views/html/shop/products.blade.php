@@ -32,6 +32,6 @@
     @endforeach
 
 </div>
-<div style="margin-left: 33%">
+<div style="margin-left: 36%;margin-bottom: -30px">
     {!! $products->appends(app("request")->input())->links("pagination::bootstrap-4") !!}
 </div>

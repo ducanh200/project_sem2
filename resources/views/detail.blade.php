@@ -18,7 +18,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 ftco-animate">
-                    <a href="images/product-1.jpg" class="image-popup"><img src="images/product-1.jpg" class="img-fluid" alt="Colorlib Template"></a>
+                    <a href="images/product-1.jpg" class="image-popup"><img src="{{$product->thumbnail}}" class="img-fluid" alt="Colorlib Template"></a>
                 </div>
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                     <h3>{{$product->name}}</h3>
@@ -39,22 +39,8 @@
                         </p>
                     </div>
                     <p class="price"><span style="text-decoration: line-through;color: #94969a">${{$product->price}}</span> <span>${{$product->price-($product->price*$product->discount/100)}}</span> </p>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
-                    </p>
+                    <p>{{$product->description}}</p>
                     <div class="row mt-4">
-                        <div class="col-md-6">
-                            <div class="form-group d-flex">
-                                <div class="select-wrap">
-                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">Small</option>
-                                        <option value="">Medium</option>
-                                        <option value="">Large</option>
-                                        <option value="">Extra Large</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="w-100"></div>
                         <div class="input-group col-md-6 d-flex mb-3">
 	             	<span class="input-group-btn mr-2">
@@ -71,7 +57,7 @@
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-12">
-                            <p style="color: #000;">600 kg available</p>
+                            <p style="color: #000;">{{$product->qty}} available</p>
                         </div>
                     </div>
                     <p><a href="{{url("/add-to-cart",["product"=>$product->id])}}" class="btn btn-black py-3 px-5">Add to Cart</a></p>

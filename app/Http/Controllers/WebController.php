@@ -19,7 +19,7 @@ class WebController extends Controller
 
     public function shop(){
         $categories = Category::limit(10)->get();
-        $products = Product::paginate(12);
+        $products = Product::paginate(16);
         return view("shop",[
             "categories"=>$categories,
             "products"=>$products

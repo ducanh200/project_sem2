@@ -14,9 +14,11 @@
 
 
 
-    @include("html.shop.type")
 
-    <div style="width: 1000px;margin: auto" class="row">
+    <div style="width: 1140px;margin: auto" class="row">
+        <div style="margin-top:30px; margin-left: 5%">
+        @include("html.shop.type")
+        </div>
         @foreach($products as $item)
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
@@ -50,10 +52,9 @@
         @endforeach
 
     </div>
-    <div style="margin-left: 33%">
+    <div style="margin-left: 45%">
         {!! $products->appends(app("request")->input())->links("pagination::bootstrap-4") !!}
     </div>
-
         @endsection
 
 
