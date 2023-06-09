@@ -16,13 +16,13 @@
 
 
     <div style="width: 1140px;margin: auto" class="row">
-        <div style="margin-top:30px; margin-left: 5%">
+        <div style="margin-top:30px; margin-left: 10%">
         @include("html.shop.type")
         </div>
         @foreach($products as $item)
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod"><img class="img-fluid" src="{{$item->thumbnail}}" alt="Colorlib Template">
+                    <a href="{{url("/detail",["product"=>$item->slug])}}" class="img-prod"><img class="img-fluid" src="{{$item->thumbnail}}" alt="Colorlib Template">
                         <span class="status">{{$item->discount}}%</span>
                         <div class="overlay"></div>
                     </a>

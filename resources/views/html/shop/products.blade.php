@@ -2,7 +2,7 @@
     @foreach($products as $item)
     <div class="col-md-6 col-lg-3 ftco-animate">
         <div class="product">
-            <a href="#" class="img-prod"><img class="img-fluid" src="{{$item->thumbnail}}" alt="Colorlib Template">
+            <a href="{{url("/detail",["product"=>$item->slug])}}" class="img-prod"><img class="img-fluid" src="{{$item->thumbnail}}" alt="Colorlib Template">
                 <span class="status">{{$item->discount}}%</span>
                 <div class="overlay"></div>
             </a>
@@ -21,7 +21,7 @@
                         <a href="{{url("/add-to-cart",["product"=>$item->id])}}" class="buy-now d-flex justify-content-center align-items-center mx-1">
                             <span><i class="ion-ios-cart"></i></span>
                         </a>
-                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                        <a href="{{url("/add-to-wishlist",["product"=>$item->id])}}" class="heart d-flex justify-content-center align-items-center ">
                             <span><i class="ion-ios-heart"></i></span>
                         </a>
                     </div>

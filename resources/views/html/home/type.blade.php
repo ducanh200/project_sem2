@@ -1,46 +1,23 @@
-
-
-<section class="ftco-section ftco-category ftco-no-pt">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-6 order-md-last align-items-stretch d-flex">
-                        <div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(images/category.jpg);">
-                            <div class="text text-center">
-                                <h2>Vegetables</h2>
-                                <p>Protect the health of every home</p>
-                                <p><a href="{{url("/shop")}}" class="btn btn-primary">Shop now</a></p>
+<div class="row justify-content-center">
+    <div class="col-md-10 mb-5 text-center">
+        <ul class="product-category">
+            <h1 style="color: #82ae46;margin-left: -30px"><b>Product types</b></h1>
+            @foreach($categories as $item)
+                <section style="float: left;margin-left:130px;margin-right: 30px;margin-bottom: -100px" class="ftco-section">
+                        <div  class="media-body">
+                            <h3  class="heading"><a href="{{url("/category",["category"=>$item->slug])}}">{{$item->name}}</a></h3>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-1.jpg);">
-                            <div class="text px-3 py-1">
-                                <h2 class="mb-0"><a href="#">Fruits</a></h2>
-                            </div>
-                        </div>
-                        <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
-                            <div class="text px-3 py-1">
-                                <h2 class="mb-0"><a href="#">Vegetables</a></h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-3.jpg);">
-                    <div class="text px-3 py-1">
-                        <h2 class="mb-0"><a href="#">Juices</a></h2>
-                    </div>
-                </div>
-                <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-4.jpg);">
-                    <div class="text px-3 py-1">
-                        <h2 class="mb-0"><a href="#">Dried</a></h2>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </section>
+            @endforeach
+        </ul>
     </div>
-</section>
+</div>
+<style>
+    .product-category{
+        margin-top: 100px;
+        height: 00px;
+    }
+     .heading a:hover{
+        color: #c82333;
+     }
+</style>

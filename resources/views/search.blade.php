@@ -6,7 +6,7 @@
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
                     <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
-                    <h1 class="mb-0 bread">Products</h1>
+                    <h1 class="mb-0 bread">Products:{{app("request")->input('q')}} </h1>
                 </div>
             </div>
         </div>
@@ -14,9 +14,10 @@
     <section class="ftco-section">
 
         <div class="container">
-
+            <div style="margin-top:30px; margin-left: 5%;margin-right: 70px">
             @include("html.shop.type")
-
+            </div>
+            @if(count($products) > 0)
             <div class="row">
                 @foreach($products as $item)
                     <div class="col-md-6 col-lg-3 ftco-animate">
@@ -50,6 +51,9 @@
                     </div>
                 @endforeach
             </div>
+            @else
+                <h4 style="color: #7b7d81;text-align: center">Không có sản phẩm thích hợp!</h4>
+            @endif
             <div style="margin-left: 33%">
                 {!! $products->appends(app("request")->input())->links("pagination::bootstrap-4") !!}
             </div>

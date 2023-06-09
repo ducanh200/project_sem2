@@ -20,7 +20,9 @@
                 <div class="col-lg-6 mb-5 ftco-animate">
                     <a href="images/product-1.jpg" class="image-popup"><img src="{{$product->thumbnail}}" class="img-fluid" alt="Colorlib Template"></a>
                 </div>
+
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                    <form action="{{url("/add-to-cart",["product"=>$product->id])}}" method="get">
                     <h3>{{$product->name}}</h3>
                     <div class="rating d-flex">
                         <p class="text-left mr-4">
@@ -44,15 +46,11 @@
                         <div class="w-100"></div>
                         <div class="input-group col-md-6 d-flex mb-3">
 	             	<span class="input-group-btn mr-2">
-	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-	                   <i class="ion-ios-remove"></i>
-	                	</button>
+
 	            		</span>
-                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                            <input name="qty" type="number" max="{{$product->qty}}" value="1">
                             <span class="input-group-btn ml-2">
-	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-	                     <i class="ion-ios-add"></i>
-	                 </button>
+
 	             	</span>
                         </div>
                         <div class="w-100"></div>
@@ -60,7 +58,8 @@
                             <p style="color: #000;">{{$product->qty}} available</p>
                         </div>
                     </div>
-                    <p><a href="{{url("/add-to-cart",["product"=>$product->id])}}" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+                    <button type="submit" class="primary-btn">ADD TO CARD</button>
+                    </form>
                 </div>
             </div>
         </div>

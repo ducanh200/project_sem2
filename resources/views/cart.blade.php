@@ -29,12 +29,10 @@
                                 <th>Total</th>
                             </tr>
                             </thead>
-
                             @foreach($products as $item)
                             <tbody>
-
                             <tr class="text-center">
-                                <td class="product-remove"><a href="{{url("/productDelete",["product"=>$item->id])}}"><span class="ion-ios-close"></span></a></td>
+                                <td class="product-remove"><a href="{{url("/cartDelete",["product"=>$item->id])}}"><span class="ion-ios-close"></span></a></td>
 
                                 <td class="image-prod"><div class="img" style="background-image:url({{$item->thumbnail}});"></div></td>
 
@@ -60,6 +58,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row justify-content-end">
                 <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
@@ -68,23 +67,32 @@
                             <span>Subtotal</span>
                             <span>${{$total}}</span>
                         </p>
+                        @if($total>100)
                         <p class="d-flex">
                             <span>Delivery</span>
-                            @if($total>100)
                             <span>$0.00</span>
-                            @else
-                                <span>$5.00</span>
-                            @endif
-                        </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
                             <span>${{$total}}</span>
                         </p>
+                            @else
+                            <p class="d-flex">
+                            <span>Delivery</span>
+                            <span>$5.00</span>
+                        </p>
+                        <hr>
+                        <p class="d-flex total-price">
+                            <span>Total</span>
+                            <span>${{$total+5}}</span>
+                        </p>
+                        @endif
+                        <p><a href="{{"/checkout"}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
                     </div>
-                    <p><a href="{{"/checkout"}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+
                 </div>
             </div>
+
         </div>
     </section>
     @else

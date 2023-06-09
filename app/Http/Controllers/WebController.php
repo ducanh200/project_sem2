@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,15 +11,17 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 class WebController extends Controller
 {
     public function home(){
+        $categories = Category::limit(4)->get();
         $products = Product::paginate(8);
         return view("home",[
+            "categories"=>$categories,
             "products"=>$products
         ]);
     }
 
 
     public function shop(){
-        $categories = Category::limit(10)->get();
+        $categories = Category::limit(4)->get();
         $products = Product::paginate(16);
         return view("shop",[
             "categories"=>$categories,
@@ -88,35 +91,59 @@ class WebController extends Controller
         session(["cart"=>$cart]);
         return redirect()->to("/cart");
     }
-    public function productDelete(Product $product)
+    public function cartDelete(Product $product)
     {
         $cart = session()->has("cart") ? session()->get("cart") : [];
         foreach ($cart as $item) {
             if ($item->id == $product->id) {
-                session(["cart" => $cart])->forget("cart");
+                session(["cart" => $cart])->remove(id);
                 return redirect()->to("/cart");
             }
         }
     }
 
-    public function wishlist(){
-        return view("wishlist");
+    public function wishlist()
+    {
+        $products = session()->has("wishlist")?session()->get("wishlist"):[];
+        $categories = Category::limit(10)->get();
+        return view("wishlist",[
+            "products"=>$products,
+            "categories"=>$categories,
+        ]);
+    }
+    public function addToWishlist(Product $product,Request $request)
+    {
+        $favorite = session()->has("wishlist") ? session()->get("wishlist") : [];
+        $qty = $request->has("qty") ? $request->get("qty") : 1;
+        foreach ($favorite as $item) {
+            if ($item->id == $product->id) {
+                $item->buy_qty = $item->buy_qty + $qty;
+                session(["wishlist" => $favorite]);
+                return redirect()->to("/wishlist");
+            }
+        }
+        $product->buy_qty = $qty;
+        $favorite[] = $product;
+        session(["wishlist" => $favorite]);
+        return redirect()->to("/wishlist");
     }
 
     public function detail(Product $product){
+        $favorite = session()->has("wishlist") ? session()->get("wishlist") : [];
         $categories = Category::limit(4)->get();
         return view("detail",[
             "categories"=>$categories,
-            "product"=>$product
+            "product"=>$product,
+            "favorite"=>$favorite
         ]);
     }
 
     public function checkout(){
         $products = session()->has("cart")?session()->get("cart"):[];
-        $categories = Category::limit(10)->get();
+        $categories = Category::limit(4)->get();
         $total = 0;
         foreach ($products as $item){
-            $total+= $item->price * $item->buy_qty;
+            $total+= ($item->price-($item->price*$item->discount/100)) * $item->buy_qty;
         }
         return view("checkout",[
             "products"=>$products,
@@ -167,5 +194,21 @@ class WebController extends Controller
                 "price" => $item->price
             ]);
         }
+    }
+    public function thankYou(Order $order){
+        $categories = Category::limit(10)->get();
+        return view("thankyou",[
+            'order'=>$order,
+            "categories"=>$categories
+        ]);
+    }
+
+    public function successTransaction(Order $order,Request $request){
+        $order->update(["is_paid"=>true,"status"=>1]);// đã thanh toán, trạng thái về xác nhận
+        return redirect()->to("/thank-you/".$order->id);
+    }
+
+    public function cancelTransaction(Order $order,Request $request){
+        return redirect()->to("/thank-you/".$order->id);
     }
 }

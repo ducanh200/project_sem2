@@ -21,7 +21,7 @@
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="{{url("/")}}">Vegefoods</a>
+        <a class="navbar-brand" href="{{url("/")}}">Healthy foods</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -34,7 +34,6 @@
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="{{url("/shop")}}">Shop</a>
                         <a class="dropdown-item" href="{{url("/wishlist")}}">Wishlist</a>
-                        <a class="dropdown-item" href="{{url("/detail")}}">Single Product</a>
                         <a class="dropdown-item" href="{{url("/cart")}}">Cart</a>
                         <a class="dropdown-item" href="{{url("/checkout")}}">Checkout</a>
                     </div>
