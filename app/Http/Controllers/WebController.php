@@ -55,11 +55,17 @@ class WebController extends Controller
     }
 
     public function about(){
-        return view("about");
+        $categories = Category::limit(4)->get();
+        return view("about",[
+            "categories"=>$categories
+        ]);
     }
 
     public function contact(){
-        return view("contact");
+        $categories = Category::limit(4)->get();
+        return view("contact",[
+            "categories"=>$categories
+        ]);
     }
 
     public function cart(){
@@ -77,8 +83,8 @@ class WebController extends Controller
     }
 
     public function addToCart(Product $product,Request $request){
-        $cart = session()->has("cart")?session()->get("cart"):[];
-        $qty = $request->has("qty")?$request->get("qty"):1;
+        $cart = session()->has("cart") ? session()->get("cart") : [];
+        $qty = $request->has("qty") ? $request->get("qty") : 1;
         foreach ($cart as $item){
             if($item->id == $product->id){
                 $item->buy_qty = $item->buy_qty+$qty;
@@ -96,7 +102,8 @@ class WebController extends Controller
         $cart = session()->has("cart") ? session()->get("cart") : [];
         foreach ($cart as $item) {
             if ($item->id == $product->id) {
-                session(["cart" => $cart])->remove(id);
+                session("cart")->forget($product);
+//                dd($product);
                 return redirect()->to("/cart");
             }
         }

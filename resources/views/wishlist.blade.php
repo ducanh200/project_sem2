@@ -46,7 +46,7 @@
 
                                     <td class="price">${{$item->price}}</td>
                                     <td><button style="width: 100px"><a href="{{url("/detail",["product"=>$item->slug])}}">DETAIL</a></button></td>
-                                    <td><button style="width: 100px"><a href="{{url("/add-to-cart",["product"=>$item->id])}}">ADD TO CARD</a></button></td>
+                                    <td><button style="width: 100px"><a href="{{url("/add-to-cart.php",["product"=>$item->id])}}">ADD TO CARD</a></button></td>
                                     @endforeach
                                 </tr><!-- END TR-->
                                 </tbody>

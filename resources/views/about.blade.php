@@ -47,7 +47,6 @@
 
     @include("html.home.prove")
 
-    @include("html.home.deal")
 
 
 @endsection

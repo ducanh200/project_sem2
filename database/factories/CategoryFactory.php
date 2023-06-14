@@ -17,7 +17,8 @@ class CategoryFactory extends Factory
         $name = $this->faker->unique()->domainName;
         return [
             "name"=>$name,
-            "slug"=>Str::slug($name)
+            "slug"=>Str::slug($name),
+            "thumbnail"=>"images/category-".random_int(1,4).".jpg",
         ];
     }
 }

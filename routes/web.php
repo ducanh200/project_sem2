@@ -20,7 +20,7 @@ Route::get("/category/{category:slug}",[\App\Http\Controllers\WebController::cla
 Route::get('/about',[\App\Http\Controllers\WebController::class,"about"]);
 Route::get('/contact',[\App\Http\Controllers\WebController::class,"contact"]);
 Route::get('/cart',[\App\Http\Controllers\WebController::class,"cart"]);
-Route::get('/cartDelete /{product}',[\App\Http\Controllers\WebController::class,"cartDelete"]);
+Route::get('/cartDelete/{product}',[\App\Http\Controllers\WebController::class,"cartDelete"]);
 Route::get("/add-to-cart/{product}",[\App\Http\Controllers\WebController::class,"addToCart"]);
 Route::get('/wishlist',[\App\Http\Controllers\WebController::class,"wishlist"]);
 Route::get('/add-to-wishlist/{product}',[\App\Http\Controllers\WebController::class,"addToWishlist"]);

@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-                    <form action="{{url("/add-to-cart",["product"=>$product->id])}}" method="get">
+                    <form action="{{url("/add-to-cart.php",["product"=>$product->id])}}" method="get">
                     <h3>{{$product->name}}</h3>
                     <div class="rating d-flex">
                         <p class="text-left mr-4">
