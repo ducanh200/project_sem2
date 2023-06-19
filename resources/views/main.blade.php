@@ -1,4 +1,4 @@
-@extends("layout.layout")
+@extends("layouts.layout")
 @section("main")
 
     @include("html.home.describe")

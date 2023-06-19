@@ -21,19 +21,23 @@
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="{{url("/")}}">Healthy foods</a>
+        <a style="margin-left: -50px" class="navbar-brand" href="{{url("/")}}">Healthy foods</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
+            <ul style="margin-right: 50px" class="navbar-nav ml-auto">
                 <li class="nav-item active"><a href="{{url("/")}}" class="nav-link">Home</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="{{url("/shop")}}">Shop</a>
-                        <a class="dropdown-item" href="{{url("/wishlist")}}">Wishlist</a>
+                        @if(session("wishlist")==0)
+                            <a class="dropdown-item" href="{{url("/wishlist")}}">Wishlist<sup style="color: #2ca02c"> [0]</sup></a>
+                        @else
+                        <a class="dropdown-item" href="{{url("/wishlist")}}">Wishlist<sup style="color: #2ca02c"> [{{count(session("wishlist"))}}]</sup></a>
+                        @endif
                         <a class="dropdown-item" href="{{url("/cart")}}">Cart</a>
                         <a class="dropdown-item" href="{{url("/checkout")}}">Checkout</a>
                     </div>
@@ -53,7 +57,22 @@
                 @else
                 <li class="nav-item cta cta-colored"><a href="{{url("/cart")}}" class="nav-link"><span class="icon-shopping_cart"></span>[{{count(session("cart"))}}]</a></li>
                 @endif
+
+
             </ul>
+
+        </div>
+        <div class="header__top__right__auth" style="text-align: left;width:190px;float: left;margin-right: -200px">
+            @guest()
+                <a href="{{url("/login")}}"><i class="fa fa-user"></i> Login</a>
+            @endguest
+            @auth()
+                <a href="#"><i class="fa fa-user"></i> {{auth()->user()->name}}</a>
+                <form action="{{route("logout")}}" method="post">
+                    @csrf
+                    <button style="float: right;margin-top: -27.5px;margin-right: 30px" type="submit" ><i class="ion-ios-log-out"></i></button>
+                </form>
+            @endauth
         </div>
     </div>
 </nav>

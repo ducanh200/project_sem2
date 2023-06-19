@@ -1,4 +1,4 @@
-@extends("layout.layout")
+@extends("layouts.layout")
 @section("main")
 
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
@@ -46,7 +46,5 @@
 
 
     @include("html.home.prove")
-
-
 
 @endsection

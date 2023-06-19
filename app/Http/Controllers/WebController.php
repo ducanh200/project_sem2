@@ -13,10 +13,13 @@ class WebController extends Controller
     public function home(){
         $categories = Category::limit(4)->get();
         $products = Product::paginate(8);
-        return view("home",[
+        return view("main",[
             "categories"=>$categories,
             "products"=>$products
         ]);
+    }
+    public function success(){
+        return view("home");
     }
 
 
@@ -97,17 +100,22 @@ class WebController extends Controller
         session(["cart"=>$cart]);
         return redirect()->to("/cart");
     }
-    public function cartDelete(Product $product)
-    {
-        $cart = session()->has("cart") ? session()->get("cart") : [];
-        foreach ($cart as $item) {
-            if ($item->id == $product->id) {
-                session("cart")->forget($product);
-//                dd($product);
-                return redirect()->to("/cart");
+    public function removeFromCart(Product $product){
+        $cart = session()->get("cart");
+
+        if ($cart) {
+            foreach ($cart as $key => $item) {
+                if ($item->id == $product->id) {
+                    unset($cart[$key]);
+                    session(["cart" => $cart]);
+                    break;
+                }
             }
         }
+
+        return redirect()->to("/cart");
     }
+
 
     public function wishlist()
     {
@@ -134,14 +142,32 @@ class WebController extends Controller
         session(["wishlist" => $favorite]);
         return redirect()->to("/wishlist");
     }
+    public function removeFromWishlist(Product $product){
+        $favorite = session()->get("wishlist");
+
+        if ($favorite) {
+            foreach ($favorite as $key => $item) {
+                if ($item->id == $product->id) {
+                    unset($favorite[$key]);
+                    session(["wishlist" => $favorite]);
+                    break;
+                }
+            }
+        }
+
+        return redirect()->to("/wishlist");
+    }
 
     public function detail(Product $product){
+        $cart = session()->has("cart") ? session()->get("cart") : [];
         $favorite = session()->has("wishlist") ? session()->get("wishlist") : [];
         $categories = Category::limit(4)->get();
         return view("detail",[
             "categories"=>$categories,
             "product"=>$product,
-            "favorite"=>$favorite
+            "favorite"=>$favorite,
+            "cart"=>$cart,
+
         ]);
     }
 
@@ -190,8 +216,7 @@ class WebController extends Controller
             "email" => $request->get("email"),
             "total" => $total,
             "payment_method" => $request->get("payment_method"),
-            //  "is_paid"=>false,
-            //   "status"=>0,
+
         ]);
         foreach ($products as $item) {
             DB::table("order_products")->insert([
@@ -201,6 +226,42 @@ class WebController extends Controller
                 "price" => $item->price
             ]);
         }
+        if($order->payment_method == "PAYPAL") {
+            $provider = new PayPalClient;
+            $provider->setApiCredentials(config('paypal'));
+            $paypalToken = $provider->getAccessToken();
+
+            $response = $provider->createOrder([
+                "intent" => "CAPTURE",
+                "application_context" => [
+                    "return_url" => route('successTransaction', ["order" => $order->id]),
+                    "cancel_url" => route('cancelTransaction', ["order" => $order->id]),
+                ],
+                "purchase_units" => [
+                    0 => [
+                        "amount" => [
+                            "currency_code" => "USD",
+                            "value" => number_format($total, 2,".","")
+                        ]
+                    ]
+                ]
+            ]);
+
+            if (isset($response['id']) && $response['id'] != null) {
+
+                // redirect to approve href
+                foreach ($response['links'] as $links) {
+                    if ($links['rel'] == 'approve') {
+                        return redirect()->away($links['href']);
+                    }
+                }
+
+            }
+        }else if($order->payment_method == "VNPAY"){
+            // thanh toan = vnpay
+        }
+        // end
+        return redirect()->to("/thank-you/".$order->id);
     }
     public function thankYou(Order $order){
         $categories = Category::limit(10)->get();
