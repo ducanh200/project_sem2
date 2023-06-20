@@ -51,7 +51,7 @@ Route::prefix("/admin")->middleware(["auth","admin"])->group(function (){
 
     Route::get("/products",[\App\Http\Controllers\AdminController::class,"products"]);
     Route::get("/products/create",[\App\Http\Controllers\AdminController::class,"productCreate"]);
-    Route::get("/products/edit",[\App\Http\Controllers\AdminController::class,"productSave"]);
+    Route::post("/products/update/{product}",[\App\Http\Controllers\AdminController::class,"productUpdate"]);
     Route::get("/products/edit/{product}",[\App\Http\Controllers\AdminController::class,"productEdit"]);
     Route::post("/products/create",[\App\Http\Controllers\AdminController::class,"productSave"]);
     Route::get("/products/delete/{product}",[\App\Http\Controllers\AdminController::class,"productDelete"]);

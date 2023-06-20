@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderMail;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 class WebController extends Controller
 {
@@ -261,6 +263,7 @@ class WebController extends Controller
             // thanh toan = vnpay
         }
         // end
+        Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
         return redirect()->to("/thank-you/".$order->id);
     }
     public function thankYou(Order $order){

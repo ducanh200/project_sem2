@@ -37,8 +37,8 @@
                                 <td>{{$item->id}}</td>
                                 <td><img src="{{$item->thumbnail}}" class="img-thumbnail" width="100"/> </td>
                                 <td>{{$item->name}}</td>
-                                <td>{{$item->price}}</td>
-                                <td>{{$item->discount}}</td>
+                                <td>${{$item->price}}</td>
+                                <td>{{$item->discount}}%</td>
                                 <td>{{$item->qty}}</td>
                                 <td>{{$item->Category->name}}</td>
                                 <td>

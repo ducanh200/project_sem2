@@ -27,7 +27,7 @@
                                 <td>{{$item->phone}}</td>
                                 <td>{{$item->payment_method}}</td>
                                 <td>
-                                    @if($item->is_paid)
+                                    @if($item->is_paid ||$item->status==4)
                                         <span class="text-success">Paid</span>
                                     @else
                                         <span class="text-danger">unPaid</span>
