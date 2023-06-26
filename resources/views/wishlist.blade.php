@@ -39,7 +39,7 @@
 
                                     <tr class="text-center">
                                         <td class="product-remove"><a
-                                                href="{{ route('wishlist.remove', ['product' => $item->id]) }}"><span
+                                                href="{{ url("/wishlist/remove", ['product' => $item->id]) }}"><span
                                                     class="ion-ios-close"></span></a></td>
 
                                         <td class="image-prod"><img style="max-width: 20%" src="{{$item->thumbnail}}">

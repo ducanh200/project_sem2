@@ -29,7 +29,7 @@
                             795 Folsom Ave, Suite 600<br>
                             San Francisco, CA 94107<br>
                             Phone: (804) 123-5432<br>
-                            Email: info@almasaeedstudio.com
+                            Email: anguyenduc075@gmail.com
                         </address>
                     </div>
                     <!-- /.col -->

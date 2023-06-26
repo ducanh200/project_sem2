@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    @if(count($products)>0)
+        @if(count($products)>0)
         <section class="ftco-section ftco-cart">
             <div class="container">
                 <div class="row">
@@ -33,7 +33,7 @@
                                     <tbody>
                                     <tr class="text-center">
                                         <td class="product-remove"><a
-                                                href="{{ route('cart.remove', ['product' => $item->id]) }}"><span
+                                                href="{{url("/cart/remove", ['product' => $item->id])}}"><span
                                                     class="ion-ios-close"></span></a></td>
 
                                         <td class="image-prod">

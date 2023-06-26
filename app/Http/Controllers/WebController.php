@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderMail;
 use App\Models\Category;
+use App\Models\Event;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Carbon\Carbon;
+
 class WebController extends Controller
 {
     public function home(){
@@ -73,6 +78,53 @@ class WebController extends Controller
         ]);
     }
 
+
+    public function should(){
+        $categories = Category::limit(4)->get();
+        return view("should",[
+            "categories"=>$categories
+        ]);
+    }
+
+    public function event()
+    {
+        $categories = Category::limit(4)->get();
+        $events = Event::all();
+
+
+        return view('event',[
+            "events"=>$events,
+            "categories"=>$categories
+        ]);
+    }
+    public function ordered(){
+        $categories = Category::limit(4)->get();
+        // Kiểm tra người dùng đã đăng nhập chưa
+        if (Auth::check()) {
+            // Lấy người dùng hiện tại
+            $user = Auth::user();
+
+            // Lấy thông tin đơn hàng của người dùng hiện tại
+            $orders = Order::where('email', $user->email)->get();
+
+            // Truyền dữ liệu đơn hàng vào view và hiển thị
+            return view('ordered', [
+                'orders' => $orders,
+                "categories"=>$categories
+            ]);
+        }
+            // Trường hợp người dùng chưa đăng nhập, xử lý tương ứng
+            // ...
+        return view("should",[
+            "categories"=>$categories
+        ]);
+    }
+    public function cancelOrder(Order $order){
+        //cập nhật status của order thành 1 (cancel)
+        $order->update(["status"=>5]);
+        return redirect()->to("/ordered");
+    }
+
     public function cart(){
         $products = session()->has("cart")?session()->get("cart"):[];
         $categories = Category::limit(4)->get();
@@ -80,11 +132,19 @@ class WebController extends Controller
         foreach ($products as $item){
             $total+= ($item->price-($item->price*$item->discount/100)) * $item->buy_qty;
         }
+        if (Auth::check()) {
+            // Lấy người dùng hiện tại
+            $user = Auth::user();
         return view("cart",[
             "products"=>$products,
             "categories"=>$categories,
             "total"=>$total
         ]);
+        }else{
+            return view("should",[
+                "categories"=>$categories
+            ]);
+        }
     }
 
     public function addToCart(Product $product,Request $request){
@@ -119,8 +179,7 @@ class WebController extends Controller
     }
 
 
-    public function wishlist()
-    {
+    public function wishlist(){
         $products = session()->has("wishlist")?session()->get("wishlist"):[];
         $categories = Category::limit(10)->get();
         return view("wishlist",[
@@ -188,6 +247,7 @@ class WebController extends Controller
     }
     public function placeOrder(Request $request)
     {
+
         $request->validate([
             "firstname" => "required",
             "lastname" => "required",
@@ -228,6 +288,11 @@ class WebController extends Controller
                 "price" => $item->price
             ]);
         }
+
+
+        Session::forget('cart');
+
+
         if($order->payment_method == "PAYPAL") {
             $provider = new PayPalClient;
             $provider->setApiCredentials(config('paypal'));
@@ -263,7 +328,9 @@ class WebController extends Controller
             // thanh toan = vnpay
         }
         // end
+
         Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
+        Mail::to($order->email)->send(new OrderMail($order));
         return redirect()->to("/thank-you/".$order->id);
     }
     public function thankYou(Order $order){
@@ -273,6 +340,7 @@ class WebController extends Controller
             "categories"=>$categories
         ]);
     }
+
 
     public function successTransaction(Order $order,Request $request){
         $order->update(["is_paid"=>true,"status"=>1]);// đã thanh toán, trạng thái về xác nhận

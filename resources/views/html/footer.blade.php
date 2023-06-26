@@ -9,7 +9,7 @@
                 <form action="{{"/register"}}" class="subscribe-form">
                     <div class="form-group d-flex">
                         <input type="text" class="form-control" placeholder="Enter email address">
-                        <input type="submit" value="Subscribe" class="submit px-3">
+                        <input href="{{"/register"}}" type="submit" value="Subscribe" class="submit px-3">
                     </div>
                 </form>
             </div>

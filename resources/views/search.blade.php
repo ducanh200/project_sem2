@@ -39,15 +39,15 @@
                                     </div>
                                     <div class="bottom-area d-flex px-3">
                                         <div class="m-auto d-flex">
-                                            <a href="#"
+                                            <a href="{{"/shop"}}"
                                                class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                                 <span><i class="ion-ios-menu"></i></span>
                                             </a>
-                                            <a href="#"
+                                            <a href="{{url("/add-to-cart",["product"=>$item->id])}}"
                                                class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                 <span><i class="ion-ios-cart"></i></span>
                                             </a>
-                                            <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                            <a href="{{url("/add-to-wishlist",["product"=>$item->id])}}" class="heart d-flex justify-content-center align-items-center ">
                                                 <span><i class="ion-ios-heart"></i></span>
                                             </a>
                                         </div>

@@ -4,8 +4,8 @@
 <table style="max-width:670px;margin:50px auto 10px;background-color:#fff;padding:50px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); border-top: solid 10px green;">
     <thead>
     <tr>
-        <th style="text-align:left;"><img style="max-width: 150px" >
-            <img src="images/logo.jpg" alt="HEALTHY FOOD">
+        <th style="text-align:left;">
+            <b style="font-size: 20px">HEALTHY FOOD</b>
         </th>
     </tr>
     </thead>
@@ -70,10 +70,11 @@
 
     </tr>
     </tbody>
+    <h4 style="color: #2ca02c;margin-left: 20px">Cám ơn quý khách hàng đã tin tưởng ủng hộ HEALTHY FOOD .Trân trọng!</h4>
     <tfooter>
         <tr>
             <td colspan="2" style="font-size:14px;padding:50px 15px 0 15px;">
-                <strong style="display:block;margin:0 0 10px 0;">Regards</strong> Healthy food<br>8A-Tôn Thất Thuyết-Hà Nội<br><br>
+                <strong style="display:block;margin:0 0 10px 0;">Mọi chi tiết xin liên hệ :</strong> Healthy food<br>8A-Tôn Thất Thuyết-Hà Nội<br>
                 <b>Phone:</b> 09999999999<br>
                 <b>Email:</b>  healthyfood@gmail.com
             </td>

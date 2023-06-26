@@ -39,7 +39,7 @@
                         <a class="dropdown-item" href="{{url("/wishlist")}}">Wishlist<sup style="color: #2ca02c"> [{{count(session("wishlist"))}}]</sup></a>
                         @endif
                         <a class="dropdown-item" href="{{url("/cart")}}">Cart</a>
-                        <a class="dropdown-item" href="{{url("#")}}">Ordered</a>
+                        <a class="dropdown-item" href="{{url("/ordered")}}">Ordered</a>
                         <a class="dropdown-item" href="{{url("/checkout")}}">Checkout</a>
                     </div>
                 </li>
@@ -51,6 +51,7 @@
                         @endforeach
                     </div>
                 </li>
+                <li class="nav-item"><a href="{{url("/event")}}" class="nav-link">Events</a></li>
                 <li class="nav-item"><a href="{{url("/about")}}" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="{{url("/contact")}}" class="nav-link">Contact & support</a></li>
                 @if(session("cart")==0)
