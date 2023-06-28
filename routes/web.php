@@ -37,6 +37,7 @@ Route::get('/detail/{product:slug}',[\App\Http\Controllers\WebController::class,
 Route::get('/checkout',[\App\Http\Controllers\WebController::class,"checkout"]);
 Route::post("/checkout",[\App\Http\Controllers\WebController::class,"placeOrder"]);
 Route::get("/thank-you/{order}",[\App\Http\Controllers\WebController::class,"thankYou"]);
+Route::get("/invoice/{order}",[\App\Http\Controllers\WebController::class,"invoice"]);
 Route::get('success-transaction,{order}', [\App\Http\Controllers\WebController::class, 'successTransaction'])->name('successTransaction');
 Route::get('cancel-transaction/{order}', [\App\Http\Controllers\WebController::class, 'cancelTransaction'])->name('cancelTransaction');
 
@@ -59,4 +60,11 @@ Route::prefix("/admin")->middleware(["auth","admin"])->group(function (){
     Route::get("/products/edit/{product}",[\App\Http\Controllers\AdminController::class,"productEdit"]);
     Route::post("/products/create",[\App\Http\Controllers\AdminController::class,"productSave"]);
     Route::get("/products/delete/{product}",[\App\Http\Controllers\AdminController::class,"productDelete"]);
+
+    Route::get("/events",[\App\Http\Controllers\AdminController::class,"events"]);
+    Route::get("/events/create",[\App\Http\Controllers\AdminController::class,"eventCreate"]);
+    Route::post("/events/create",[\App\Http\Controllers\AdminController::class,"eventSave"]);
+    Route::get("/events/edit/{event}",[\App\Http\Controllers\AdminController::class,"eventEdit"]);
+    Route::post("/events/update/{event}",[\App\Http\Controllers\AdminController::class,"eventUpdate"]);
+    Route::get("/events/delete/{event}",[\App\Http\Controllers\AdminController::class,"eventDelete"]);
 });

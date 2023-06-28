@@ -91,11 +91,18 @@ class WebController extends Controller
         $categories = Category::limit(4)->get();
         $events = Event::all();
 
+        foreach ($events as $event) {
+            $currentDateTime = Carbon::now(); // Lấy thời gian hiện tại
+            $futureDateTime = Carbon::parse($event->begin); // Mốc thời gian trong tương lai
+            $remainingTime = $currentDateTime->diff($futureDateTime); // Tính khoảng thời gian giữa hai mốc thời gian
 
-        return view('event',[
-            "events"=>$events,
-            "categories"=>$categories
-        ]);
+
+            return view('event', [
+                "events" => $events,
+                "categories" => $categories,
+                "remainingTime" => $remainingTime
+            ]);
+        }
     }
     public function ordered(){
         $categories = Category::limit(4)->get();
@@ -122,6 +129,9 @@ class WebController extends Controller
     public function cancelOrder(Order $order){
         //cập nhật status của order thành 1 (cancel)
         $order->update(["status"=>5]);
+
+        Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
+        Mail::to($order->email)->send(new OrderMail($order));
         return redirect()->to("/ordered");
     }
 
@@ -263,7 +273,11 @@ class WebController extends Controller
         $products = session()->has("cart") ? session()->get("cart") : [];
         $total = 0;
         foreach ($products as $item) {
-            $total += $item->price * $item->buy_qty;
+            $total += ($item->price-($item->price*$item->discount/100)) * $item->buy_qty;
+            if ($total>=100){
+                $total = $total+0;
+            }else{
+                $total = $total+5;            }
         }
 
         $order = Order::create([
@@ -313,6 +327,10 @@ class WebController extends Controller
                     ]
                 ]
             ]);
+            $order->update(["status"=>1]);
+            $order->update(["is_paid"=>1]);
+            Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
+            Mail::to($order->email)->send(new OrderMail($order));
 
             if (isset($response['id']) && $response['id'] != null) {
 
@@ -324,6 +342,7 @@ class WebController extends Controller
                 }
 
             }
+
         }else if($order->payment_method == "VNPAY"){
             // thanh toan = vnpay
         }
@@ -349,5 +368,12 @@ class WebController extends Controller
 
     public function cancelTransaction(Order $order,Request $request){
         return redirect()->to("/thank-you/".$order->id);
+    }
+    public function invoice(Order $order){
+        $categories = Category::limit(10)->get();
+        return view("invoice",[
+            'order'=>$order,
+            "categories"=>$categories
+        ]);
     }
 }

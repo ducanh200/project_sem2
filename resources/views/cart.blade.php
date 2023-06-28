@@ -74,26 +74,26 @@
                                 <span>Subtotal</span>
                                 <span>${{$total}}</span>
                             </p>
-                            @if($total>100)
-                                <p class="d-flex">
-                                    <span>Delivery</span>
-                                    <span>$0.00(Free ship)</span>
-                                <hr>
-                                <p class="d-flex total-price">
-                                    <span>Total</span>
-                                    <span>${{$total}}</span>
-                                </p>
-                            @else
-                                <p class="d-flex">
-                                    <span>Delivery</span>
-                                    <span>$5.00</span>
-                                </p>
-                                <hr>
-                                <p class="d-flex total-price">
-                                    <span>Total</span>
-                                    <span>${{$total+5}}</span>
-                                </p>
-                            @endif
+{{--                            @if($total>100)--}}
+{{--                                <p class="d-flex">--}}
+{{--                                    <span>Delivery</span>--}}
+{{--                                    <span>$0.00(Free ship)</span>--}}
+{{--                                <hr>--}}
+{{--                                <p class="d-flex total-price">--}}
+{{--                                    <span>Total</span>--}}
+{{--                                    <span>${{$total}}</span>--}}
+{{--                                </p>--}}
+{{--                            @else--}}
+{{--                                <p class="d-flex">--}}
+{{--                                    <span>Delivery</span>--}}
+{{--                                    <span>$5.00</span>--}}
+{{--                                </p>--}}
+{{--                                <hr>--}}
+{{--                                <p class="d-flex total-price">--}}
+{{--                                    <span>Total</span>--}}
+{{--                                    <span>${{$total+5}}</span>--}}
+{{--                                </p>--}}
+{{--                            @endif--}}
                             <p><a href="{{"/checkout"}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
                         </div>
 

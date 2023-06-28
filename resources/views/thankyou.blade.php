@@ -15,42 +15,20 @@
 
     <body>
     <div class="thank">
-        <h1>Cảm ơn bạn đã mua hàng!</h1>
+        <h1 style="text-align: center;color: #2ca02c">Cảm ơn bạn đã mua hàng!</h1>
 
-        <p>Thông tin sản phẩm:</p>
-        @foreach($order->products as $item)
-            <div class="row_product">
-            <div class="product">
-            <p>Tên sản phẩm: <b style="color: #2ca02c">{{$item->name}}</b></p>
-            <p>Giảm giá: <b style="color: #2ca02c">{{$item->discount}}%</b></p>
-            <p>Số lượng: <b style="color: #2ca02c">{{$item->pivot->buy_qty}}</b></p>
-            <p>Giá tiền: <i style="text-decoration: line-through">${{$item->price}}</i> <b style="color: red">${{($item->price-($item->price*$item->discount/100))}}</b> </p>
-            </div>
-            </div>
-        @endforeach
-        <h4 style="color: red">Tổng thanh toán: <b>${{$order->total}}</b></h4>
-
-        <p style="color: #2ca02c;font-size: 20px">Cảm ơn bạn đã tin tưởng và mua hàng của chúng tôi!</p>
+        <a href="{{url("/")}}" class="btn btn-outline-primary">
+            Home
+        </a>
+        <a href="{{url("/invoice",[$order->id])}}" class="btn btn-outline-primary">
+            Order Details
+        </a>
     </div>
-    </body>
-
-    <style>
-        .thank {
-            width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        p {
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-    </style>
-
 @endsection
+    <style>
+        .thank{
+            text-align: center;
+            margin-bottom: 50px;
+            margin-top: 20px;
+        }
+    </style>

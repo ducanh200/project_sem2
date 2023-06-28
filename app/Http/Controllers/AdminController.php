@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderMail;
 use App\Models\Category;
+use App\Models\Event;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -164,6 +165,106 @@ class AdminController extends Controller
         $product->delete();
         return redirect()->to("/admin/products");
     }
+
+
+    public function events()
+    {
+        $events = Event::orderBy("id", "desc")->limit(session("length"))->get();
+        return view("admin.events", [
+            "events" => $events
+        ]);
+    }
+    public function eventCreate(){
+        $events = Event::all();
+        return view('admin.event_form', [
+            "events" => $events
+        ]);
+    }
+    public function eventEdit(Event $event){
+        return view("admin.event_edit",[
+            "event"=>$event
+        ]);
+    }
+    public function eventDelete(Event $event){
+        $event->delete();
+        return redirect()->to("/admin/events");
+    }
+    public function eventUpdate(Request $request,Event $event){
+
+        $request->validate([
+            "name" => "required",
+            "donor" => "required",
+            "address"=>"required",
+            "description"=>"required",
+            "begin" => "required",
+            "finish" => "required",
+            "event" => $event
+        ], [
+
+        ]);
+        $event = Event::findOrFail($event->id);
+        // upload file
+        $thumbnail = $event->thumbnail;
+        if ($request->hasFile("thumbnail")) {
+            $file = $request->file("thumbnail");
+            $fileName = time() . $file->getClientOriginalName();
+            $path = public_path("uploads");
+            $file->move($path, $fileName);
+            $thumbnail = "/uploads/" . $fileName;
+
+            // Xóa thumbnail cũ
+            if ($event->thumbnail) {
+                $oldThumbnail = public_path($event->thumbnail);
+                if (file_exists($oldThumbnail)) {
+                    unlink($oldThumbnail);
+                }
+            }
+        }
+        $event->name = $request->get("name");
+        $event->donor = $request->get("donor");
+        $event->address = $request->get("address");
+        $event->description = $request->get("description");
+        $event->begin = $request->get("begin");
+        $event->finish = $request->get("finish");
+        $event->thumbnail = $thumbnail;
+        $event->save();
+
+        return redirect()->to("/admin/events");
+    }
+    public function eventSave(Request $request)
+    {
+        $request->validate([
+            "name" => "required",
+            "donor" => "required",
+            "address" => "required",
+            "begin" => "required",
+            "description"=>"required",
+            "finish"=>"required"
+        ], [
+            // thong bao gi thi thong bao
+        ]);
+        // upload file
+        $thumbnail = null;
+        if ($request->hasFile("thumbnail")) {
+            $file = $request->file("thumbnail");
+            $fileName = time() . $file->getClientOriginalName();
+            $path = public_path("uploads");
+            $file->move($path, $fileName);
+            $thumbnail = "/uploads/" . $fileName;
+        }
+        Event::create([
+            "name" => $request->get("name"),
+            "donor" => $request->get("donor"),
+            "address" => $request->get("address"),
+            "description"=>$request->get("description"),
+            "begin" => $request->get("begin"),
+            "finish" => $request->get("finish"),
+            "thumbnail" => $thumbnail
+        ]);
+        return redirect()->to("/admin/events");
+    }
+
+
 
 }
 

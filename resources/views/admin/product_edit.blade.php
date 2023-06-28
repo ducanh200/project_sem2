@@ -3,7 +3,6 @@
 
     <form action="{{url("/admin/products/update",["product"=>$product->id])}}" method="post" enctype="multipart/form-data">
         @csrf
-
         <div class="form-group">
             <label for="exampleFormControlInput1">Name</label>
             <input name="name" type="text"  class="form-control" value="{{$product->name}}" placeholder="">
@@ -12,7 +11,7 @@
             <label for="exampleFormControlFile1">Thumbnail</label>
             <br>
             @if($product->thumbnail)
-                <img src="{{ $product->thumbnail }}" alt="Thumbnail" style="width: 80px;">
+                <img src="{{ $product->thumbnail }}" alt="Thumbnail" style="width: 80px;"><u>  {{ $product->thumbnail }}</u>
             @endif
 
             <input style="margin-top: 10px" type="file" name="thumbnail" class="form-control-file" value="{{$product->thumbnail}}" id="exampleFormControlFile1">

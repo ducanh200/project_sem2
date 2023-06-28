@@ -13,7 +13,7 @@
         </div>
     </div>
 
-<h1 style="text-align: center;color: #2ca02c;margin: 30px">Products ordered</h1>
+<h1 style="text-align: center;color: #2ca02c;margin: 30px"><b>Products ordered</b></h1>
 {{--@if(Auth::check() && isset($user))--}}
 {{--    <h1>Bạn phải đăng nhập trước khi xem hóa đơn hoặc mua hàng!</h1>--}}
 {{--@else--}}
@@ -32,7 +32,7 @@
             <tbody>
             @foreach ($orders as $order)
                 <tr>
-                    <td>{{ $order->id }}</td>
+                    <td style="text-align: center">{{ $order->id }}</td>
                     <td>{{ auth()->user()->name}}</td>
                     <td>{{ $order->address }}-{{ $order->city }}-{{ $order->country }}</td>
                     <td>
@@ -48,7 +48,7 @@
                            (<b style="color: #e50606"><span class="text-danger">unPaid</span></b>)
                         @endif
                     </td>
-                    <td>
+                    <td style="text-align: center">
                         @if($order->status==0)
                             <a href="{{url("/ordered/cancel",["order"=>$order->id])}}" class="btn btn-danger float-none ">Cancel Order</a>
                         @else
@@ -75,9 +75,10 @@
 @endsection
 <style>
     table {
-        width: 100%;
+        width: 95%;
         border-collapse: collapse;
-        margin-bottom: 20px;
+        margin: auto;
+        margin-bottom: 50px;
         color: black;
         font-size: 14px;
     }
@@ -101,5 +102,6 @@
 
     li {
         margin-bottom: 5px;
+
     }
 </style>
