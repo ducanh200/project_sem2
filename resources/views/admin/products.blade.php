@@ -18,7 +18,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card" style="background-color: #454d55;color: #fff">
                 <div class="card-header">
                     <h3 class="card-title">Responsive Hover Table</h3>
 

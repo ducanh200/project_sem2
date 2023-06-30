@@ -3,20 +3,20 @@
 <head>
     @include("admin.html.head")
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" style="background-color: #454d55;color: #fff" >
 <div class="wrapper">
 
     <!-- Preloader -->
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: #454d55;color: #fff">
         <!-- Left navbar links -->
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" >
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{"/"}}" class="nav-link">Home page</a>
+                <a style="color: #0c84ff" href="{{"/"}}" class="nav-link">Home page</a>
             </li>
     {{--            <li class="nav-item d-none d-sm-inline-block">--}}
     {{--                <a href="#" class="nav-link">Contact</a>--}}
@@ -149,14 +149,14 @@
     <!-- Main Sidebar Container -->
     @include("admin.html.aside")
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="background-color: #454d55;color: #fff">
         <!-- Content Header (Page header) -->
 
         <!-- /.content-header -->
 
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container-fluid" >
                 <!-- Small boxes (Stat box) -->
                 @yield("main")
                 <!-- /.row (main row) -->
@@ -165,7 +165,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
+    <footer class="main-footer" style="background-color: #454d55;color: #fff">
         <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">

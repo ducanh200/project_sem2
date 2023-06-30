@@ -327,6 +327,7 @@ class WebController extends Controller
                     ]
                 ]
             ]);
+
             $order->update(["status"=>1]);
             $order->update(["is_paid"=>1]);
             Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
@@ -348,7 +349,7 @@ class WebController extends Controller
         }
         // end
 
-        Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
+        Mail::to("anguyenduc075@gmail.com")->send(new NotifyMail($order));
         Mail::to($order->email)->send(new OrderMail($order));
         return redirect()->to("/thank-you/".$order->id);
     }

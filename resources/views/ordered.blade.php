@@ -27,6 +27,7 @@
                 <th>Product</th>
                 <th>Total money</th>
                 <th>Status</th>
+                <th>Detail</th>
             </tr>
             </thead>
             <tbody>
@@ -62,20 +63,23 @@
                             @endswitch
                         @endif
                     </td>
+                    <td>
+                        <a href="{{url("/invoice",["order"=>$order->id])}}" class="btn btn-outline-success " style="height: 35px">View</a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
 
     @else
-        <h3 style="color: #4a5568;margin-bottom: 50px;text-align: center">Không có đơn hàng nào được tìm thấy.</h3>
+        <h3 style="color: #4a5568;margin-bottom: 50px;text-align: center">Không có đơn hàng nào được tìm thấy!.</h3>
 @endif
 
 {{--@endif--}}
 @endsection
 <style>
     table {
-        width: 95%;
+        width: 75%;
         border-collapse: collapse;
         margin: auto;
         margin-bottom: 50px;

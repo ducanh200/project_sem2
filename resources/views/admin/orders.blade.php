@@ -16,9 +16,9 @@
         </div><!-- /.container-fluid -->
     </div>
 
-    <div class="row">
+    <div class="row" >
         <div class="col-12">
-            <div class="card">
+            <div class="card" style="background-color: #454d55;color: #fff">
 
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
@@ -51,7 +51,7 @@
                                 </td>
                                 <td>
                                     @switch($item->status)
-                                        @case(0)<span class="text text-dark">Pending</span>@break
+                                        @case(0)<span class="text text-red">Pending</span>@break
                                         @case(1)<span class="text text-blue">Confirmed</span>@break
                                         @case(2)<span class="text text-warning">Shipping</span>@break
                                         @case(3)<span class="text text-warning">Shipped</span>@break
