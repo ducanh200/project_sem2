@@ -7,11 +7,9 @@
                 <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
                 <h3><a href="#">Spinach</a></h3>
                 <span class="price">$10 <a href="#">now $5 only</a></span>
-                <div id="timer" class="d-flex mt-5">
-                    <div class="time pl-3" id="hours"></div>
-                    <div class="time pl-3" id="minutes"></div>
-                    <div class="time pl-3" id="seconds"></div>
-                </div>
+                <br>
+                <br>
+                <button style="background-color: #4eb256;border: 0px"><a style="color: black" href="{{url("/shop")}}">Shop now</a> </button>
             </div>
         </div>
     </div>

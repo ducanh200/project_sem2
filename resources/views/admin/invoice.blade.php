@@ -25,7 +25,7 @@
                     <div class="col-sm-4 invoice-col">
                         From
                         <address>
-                            <strong>Admin, Inc.</strong><br>
+                            <strong>Admin.</strong><br>
                             795 Folsom Ave, Suite 600<br>
                             San Francisco, CA 94107<br>
                             Phone: (804) 123-5432<br>
@@ -37,8 +37,12 @@
                         To
                         <address>
                             <strong>{{$order->firstname.", ".$order->lastname}}</strong><br>
-                            {{$order->address}}<br>
-                            {{$order->city.",".$order->country}}<br>
+                            {{$order->address.",".$order->city.",".$order->country}}<br>
+                            @if($order->is_paid ==0)
+                                Paid: UnPaid<br>
+                            @else
+                                Paid: Paid<br>
+                            @endif
                             Phone: {{$order->phone}}<br>
                             Email: {{$order->email}}
                         </address>
@@ -48,8 +52,8 @@
                         <b>Invoice #{{$order->id}}</b><br>
                         <br>
                         <b>Order ID:</b> {{$order->id}}<br>
-                        <b>Payment Due:</b> {{$order->created_at}}<br>
-                        <b>Account:</b> 968-34567
+                        <b>Payment Due:</b> {{$order->payment_method}}<br>
+                        <b>Order at: {{$order->created_at}}</b>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -63,6 +67,7 @@
                             <tr>
                                 <th>Qty</th>
                                 <th>Product</th>
+                                <th>Product</th>
                                 <th>Serial #</th>
                                 <th>Subtotal</th>
                             </tr>
@@ -72,6 +77,7 @@
                                 <tr>
                                     <td>{{$item->pivot->buy_qty}}</td>
                                     <td>{{$item->name}}</td>
+                                    <td>{{$item->id}}</td>
                                     <td>455-981-221</td>
                                     <td>${{$item->pivot->price * $item->pivot->buy_qty}}</td>
                                 </tr>
@@ -148,6 +154,12 @@
                                 @case(3)<span class="text text-warning">Shipped</span>@break
                                 @case(4)<span class="text text-success">Completed</span>@break
                                 @case(5)<span class="text text-warning">Cancelled</span>@break
+                                @case(6)<span class="text text-danger">Pending Returns Confirm</span>@break
+                                @case(7)<span class="text text-purple">Returns Confirmed</span>@break
+                                @case(8)<span class="text text-success">Returns Completed</span>
+                                @case(9)<span class="text text-success">Returns failed</span>
+
+                                @break
                             @endswitch
                         </b>
                         @switch($order->status)
@@ -177,11 +189,23 @@
                             @case(4)
                                 @break
                             @case(5)
+                                @break
+                            @case(6)
+                                <a href="{{url("admin/orders/returnconfirm",["order"=>$order->id])}}" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit Return Confirmed</a>
+                                <a href="{{url("admin/orders/returnfailed",["order"=>$order->id])}}" class="btn btn-danger float-right"><i class="far fa-credit-card"></i> Submit
+                                    Return Cancel
+                                </a>
 
                                 @break
+                            @case(7)
+                                <a href="{{url("admin/orders/returncomplete",["order"=>$order->id])}}" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit Return Completed</a>
+                                @break
+                            @case(8)
+                                @break
+                            @case(9)
+                                @break
+
                         @endswitch
-
-
                     </div>
                 </div>
             </div>

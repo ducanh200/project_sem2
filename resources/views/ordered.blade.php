@@ -14,6 +14,11 @@
     </div>
 
 <h1 style="text-align: center;color: #2ca02c;margin: 30px"><b>Products ordered</b></h1>
+<div style="width: 300px;margin: auto;margin-top: -20px;margin-bottom: 30px;text-align: center" class="aside">
+    <a style="text-align: center" class="btn btn-primary float-none" href="{{"/"}}">Home</a>
+    <a style="text-align: center" class="btn btn-primary float-none" href="{{"/shop"}}">Shopping</a>
+    <a style="text-align: center" class="btn btn-primary float-none" href="{{"/cart"}}">Cart</a>
+</div>
 {{--@if(Auth::check() && isset($user))--}}
 {{--    <h1>Bạn phải đăng nhập trước khi xem hóa đơn hoặc mua hàng!</h1>--}}
 {{--@else--}}
@@ -51,15 +56,20 @@
                     </td>
                     <td style="text-align: center">
                         @if($order->status==0)
-                            <a href="{{url("/ordered/cancel",["order"=>$order->id])}}" class="btn btn-danger float-none ">Cancel Order</a>
+                            <span class="text text-dark">Pending</span><a href="{{url("/ordered/cancel",["order"=>$order->id])}}" class="btn btn-danger float-none ">Cancel Order</a>
                         @else
                             @switch($order->status)
                                 @case(0)<span class="text text-dark">Pending</span>@break
                                 @case(1)<span style="color: #0c84ff" >Confirmed</span>@break
-                                @case(2)<span class="text text-warning">Shipping</span>@break
-                                @case(3)<span class="text text-warning">Shipped</span>@break
-                                @case(4)<span class="text text-success">Completed</span>@break
+                                @case(2)<span class="text text-warning">Shipping </span><br><a href="{{url("/ordered/received",["order"=>$order->id])}}" class="btn btn-success float-none "> Received</a>@break
+                                @case(3)<span class="text text-warning">Shipped </span><br><a href="{{url("/ordered/received",["order"=>$order->id])}}" class="btn btn-success float-none "> Received</a>@break
+                                @case(4)<span class="text text-success">Completed</span> <br><a href="{{url("/ordered/returns",["order"=>$order->id])}}" class="btn btn-danger float-none ">Returns</a>@break
                                 @case(5)<span style="color: red" >Cancelled</span>@break
+                                @case(6)<span class="text text-danger">Pending Returns Confirm</span><a href="{{url("/ordered/received",["order"=>$order->id])}}" class="btn btn-primary float-none"> Returns Cancel</a>@break
+                                @case(7)<span class="text text-blue">Returns Confirmed</span>@break
+                                @case(8)<span class="text text-success">Returns Completed</span>@break
+                                @case(9)<span class="text text-success">Completed <br>(<b style="color: #c82333">Returns failed</b>)</span>@break
+
                             @endswitch
                         @endif
                     </td>
@@ -72,7 +82,7 @@
         </table>
 
     @else
-        <h3 style="color: #4a5568;margin-bottom: 50px;text-align: center">Không có đơn hàng nào được tìm thấy!.</h3>
+        <h3 style="color: #4a5568;margin-bottom: 50px;text-align: center">No invoices have been found before!.</h3>
 @endif
 
 {{--@endif--}}

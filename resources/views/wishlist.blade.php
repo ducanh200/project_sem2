@@ -12,10 +12,15 @@
             </div>
         </div>
     </div>
-
+    <h1 style="text-align: center;color: #2ca02c;margin: 30px"><b>My Wishlist</b></h1>
+    <div style="width: 300px;margin: auto;margin-top: 30px;text-align: center" class="aside">
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/"}}">Home</a>
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/shop"}}">Shopping</a>
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/cart"}}">Cart</a>
+    </div>
     @if(count($products)>0)
         <section class="ftco-section ftco-cart">
-            <div class="container">
+            <div style="margin-top: -50px" class="container">
                 <div class="row">
                     <div class="col-md-12 ftco-animate">
                         <div class="cart-list">

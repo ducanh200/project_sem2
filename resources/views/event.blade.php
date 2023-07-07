@@ -12,17 +12,33 @@
             </div>
         </div>
     </div>
+    <h1 style="text-align: center;color: #2ca02c;margin: 30px"><b>Events famous</b></h1>
+    <div style="width: 300px;margin: auto;margin-top: 30px;margin-bottom: -60px;text-align: center" class="aside">
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/"}}">Home</a>
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/shop"}}">Shopping</a>
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/cart"}}">Cart</a>
+    </div>
 @foreach($events as $item)
     <div id="countdown">
     <section class="ftco-section img" style="background-image: url({{$item->thumbnail}});margin: 100px">
-        <div class="container">
+        <div class="container" style="margin-bottom: -100px">
 {{--            <div class="row justify-content-end">--}}
                 <div style="margin-bottom: 100px" class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">
                     <span style="font-size: 25px;" class="subheading"><b style="color: #f60404">Donor</b> : {{$item->donor}}</span>
                     <h2 style="color: #0da678;" class="mb-4">{{$item->name}}</h2>
                     <p style="color: white">{{$item->description}}</p>
                     <h5 style="color: #52b9ef"> <i>{{$item->begin}}</i>  <b>   _To_ </b>  <i>{{$item->finish}}</i></h5>
+                    @php
+                        $currentDateTime = Carbon\Carbon::now();
+                        $futureDateTime = Carbon\Carbon::parse($item->finish);
+                        $remainingTime = $currentDateTime->diff($futureDateTime);
+                    @endphp
+
+                    @if ($remainingTime->days <= 0 && $remainingTime->h <= 0 && $remainingTime->i <= 0)
+                        <h5 style="color: #f60404">Thời gian đăng kí đã kết thúc</h5>
+                    @else
                     <h5 style="color: #f60404">Thời gian đăng kí còn lại :
+
                         <p style="color: #2ca02c">
                         <table>
                             <thead>
@@ -30,51 +46,25 @@
                                 <th>Days</th>
                                 <th>Hours</th>
                                 <th>Minutes</th>
-                                <th>Sems</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>{{$remainingTime->days}} day</td>
-                                <td>{{$remainingTime->h}}h</td>
-                                <td>{{$remainingTime->i}}'</td>
-                                <td><span id="s">{{ $remainingTime->s }}</span>s</td>
+                                    <td>{{$remainingTime->days}} day</td>
+                                    <td>{{$remainingTime->h}}h</td>
+                                    <td>{{$remainingTime->i}}'</td>
                             </tr>
                             </tbody>
                         </table>
                     </h5>
+                    @endif
 
-
+                    <a style="margin-left: 50px;margin-top: 10px" class="btn btn-primary float-none" href="{{url("/event",["event"=>$item->id])}}">Detail Event</a>
                 </div>
             </div>
 {{--        </div>--}}
     </section>
-
-
     </div>
-
-    <script>
-        // Lấy phần tử span của giây
-        var secondsSpan = document.getElementById('s');
-
-        // Định nghĩa hàm để cập nhật giây
-        function updateSeconds() {
-            // Giảm giá trị giây đi 1
-            var s = parseInt(secondsSpan.innerHTML);
-            s--;
-
-            // Kiểm tra nếu giây nhỏ hơn 0, đặt lại giá trị là 59
-            if (s < 0) {
-                s = 59;
-            }
-
-            // Cập nhật giá trị giây vào phần tử span
-            secondsSpan.innerHTML = s;
-        }
-
-        // Gọi hàm updateSeconds mỗi giây (1000 milliseconds)
-        setInterval(updateSeconds, 1000);
-    </script>
 @endforeach
 @endsection
 <style>

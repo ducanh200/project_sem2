@@ -19,8 +19,8 @@
 
                 <div class="card">
                     <div class="text-left logo p-2 px-5">
-                        <img src="images/logo.png" width="150" >
-                        <h2 style="float: right;margin-top: 45px;margin-right: 200px;color: #28a745;font-weight: bold">HEALTHY FOODS</h2>
+                        <img src="https://fbcd.co/images/products/75ff08c4edd77315ff923c0a8ac6c413_resize.png" width="150px" >
+                        <h2 style="float: right;margin-top: 25px;margin-right: 200px;color: #28a745;font-weight: bold">HEALTHY FOODS</h2>
                     </div>
 
                     <div class="invoice p-5">
@@ -83,7 +83,7 @@
                                                 <span class="d-block">Quantity: {{$item->pivot->buy_qty}}</span>
                                                 <span>Discount: {{$item->discount}}%</span>
                                                 <br>
-                                                <span class="font-weight-bold">Price: {{$item->price}}</span>
+                                                <span class="font-weight-bold">Price: <i style="text-decoration: line-through;color: #94969a">${{$item->price}}</i>  <b>${{$item->price-($item->price*$item->discount/100)}}</b></span>
                                             </div>
                                         </td>
 

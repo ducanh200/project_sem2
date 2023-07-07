@@ -42,17 +42,27 @@
 	             	<span class="input-group-btn mr-2">
 
 	            		</span>
+                                @if($product->qty >0)
                                 <input name="qty" type="number" max="{{$product->qty}}" value="1" min="1">
                                 <span class="input-group-btn ml-2">
+                                    @else
+                                    @endif
 
 	             	</span>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-md-12">
-                                <p style="color: #000;">{{$product->qty}} available</p>
+                                @if($product->qty >0)
+                                    <p style="color: #000;">{{$product->qty}} available</p>
+                                @else
+                                    <h4 style="color: #e50606;">Out of stock</h4>
+                                @endif
                             </div>
                         </div>
+                        @if($product->qty >0)
                         <button type="submit" class="primary-btn">ADD TO CARD</button>
+                        @else
+                        @endif
                     </form>
                 </div>
             </div>

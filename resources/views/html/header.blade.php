@@ -32,7 +32,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="{{url("/shop")}}">Shop</a>
+                        <a class="dropdown-item" href="{{url("/shop")}}">Shopping</a>
                         @if(session("wishlist")==0)
                             <a class="dropdown-item" href="{{url("/wishlist")}}">Wishlist<sup style="color: #2ca02c"> [0]</sup></a>
                         @else

@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">All Orders</h1>
+                    <h1 class="m-0">Pending Returns Confirm Orders</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -94,6 +94,6 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
-    </div>
+        </div>
 
 @endsection

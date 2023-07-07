@@ -86,24 +86,22 @@ class WebController extends Controller
         ]);
     }
 
-    public function event()
+    public function event(Event $event)
     {
         $categories = Category::limit(4)->get();
         $events = Event::all();
+        $event = Event::find($event->id);
 
-        foreach ($events as $event) {
-            $currentDateTime = Carbon::now(); // Lấy thời gian hiện tại
-            $futureDateTime = Carbon::parse($event->begin); // Mốc thời gian trong tương lai
-            $remainingTime = $currentDateTime->diff($futureDateTime); // Tính khoảng thời gian giữa hai mốc thời gian
+
 
 
             return view('event', [
+                "event"=>$event,
                 "events" => $events,
                 "categories" => $categories,
-                "remainingTime" => $remainingTime
             ]);
         }
-    }
+
     public function ordered(){
         $categories = Category::limit(4)->get();
         // Kiểm tra người dùng đã đăng nhập chưa
@@ -133,6 +131,29 @@ class WebController extends Controller
         Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
         Mail::to($order->email)->send(new OrderMail($order));
         return redirect()->to("/ordered");
+    }
+    public function receivedOrder(Order $order){
+        //cập nhật status của order thành 1 (cancel)
+        $order->update(["status"=>4]);
+
+        Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
+        Mail::to($order->email)->send(new OrderMail($order));
+        return redirect()->to("/ordered");
+    }
+    public function returns(Order $order){
+        $order->update(["status"=>6]);
+
+        Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
+        Mail::to($order->email)->send(new OrderMail($order));
+        return redirect()->to("/ordered");
+    }
+
+    public function returnCompleted(Order $order){
+        $order->update(["status"=>9]);
+
+        //gửi email cho khách báo đơn đã được chuyển trạng thái
+        Mail::to($order->email)->send(new OrderMail($order));
+        return redirect()->to("/ordered/".$order->id);
     }
 
     public function cart(){
@@ -242,6 +263,23 @@ class WebController extends Controller
         ]);
     }
 
+    public function detailEvent(Event $event)
+    {
+        $events = Event::all();
+        $favorite = session()->has("wishlist") ? session()->get("wishlist") : [];
+        $categories = Category::limit(4)->get();
+
+
+            return view("detail_event", [
+                "categories" => $categories,
+                "event" => $event,
+                "favorite" => $favorite,
+                "events" => $events,
+
+            ]);
+        }
+
+
     public function checkout(){
         $products = session()->has("cart")?session()->get("cart"):[];
         $categories = Category::limit(4)->get();
@@ -255,7 +293,7 @@ class WebController extends Controller
             "total"=>$total
         ]);
     }
-    public function placeOrder(Request $request)
+    public function placeOrder(Request $request,Order $order)
     {
 
         $request->validate([
@@ -277,9 +315,26 @@ class WebController extends Controller
             if ($total>=100){
                 $total = $total+0;
             }else{
-                $total = $total+5;            }
+                $total = $total+5;
+            }
         }
 
+        //cập nhật số lượng sản phẩm
+        foreach ($products as $item) {
+            $buy_qty = $item->buy_qty;
+            $product = Product::find($item->id);
+
+            if ($product->qty >= $buy_qty) {
+                // Trừ số lượng sản phẩm đã mua khỏi số lượng hiện có
+                $new_quantity = $product->qty - $buy_qty;
+
+                // Cập nhật số lượng mới vào cơ sở dữ liệu
+                $product->qty = $new_quantity;
+                $product->save();
+            } else {
+                // Xử lý khi số lượng sản phẩm không đủ để đáp ứng yêu cầu đặt hàng
+            }
+        }
         $order = Order::create([
             "firstname" => $request->get("firstname"),
             "lastname" => $request->get("lastname"),
@@ -349,7 +404,7 @@ class WebController extends Controller
         }
         // end
 
-        Mail::to("anguyenduc075@gmail.com")->send(new NotifyMail($order));
+        Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
         Mail::to($order->email)->send(new OrderMail($order));
         return redirect()->to("/thank-you/".$order->id);
     }
@@ -377,4 +432,7 @@ class WebController extends Controller
             "categories"=>$categories
         ]);
     }
+
+
+
 }

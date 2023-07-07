@@ -11,9 +11,16 @@
             </div>
         </div>
     </div>
+    <h1 style="text-align: center;color: #2ca02c;margin: 30px"><b>My Cart</b></h1>
+    <div style="width: 300px;margin: auto;margin-top:20px;text-align: center" class="aside">
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/"}}">Home</a>
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/shop"}}">Shopping</a>
+        <a style="text-align: center" class="btn btn-primary float-none" href="{{"/cart"}}">Cart</a>
+    </div>
+
         @if(count($products)>0)
-        <section class="ftco-section ftco-cart">
-            <div class="container">
+        <section  class="ftco-section ftco-cart">
+            <div style="margin-top: -50px" class="container">
                 <div class="row">
                     <div class="col-md-12 ftco-animate">
                         <div class="cart-list">
@@ -105,9 +112,10 @@
     @else
         <section class="shoping-cart spad">
             <div style="margin-top: 100px;margin-bottom:100px;text-align: center" class="container">
-                <h4 style="color: #4a5568">Không có sản phẩm nào trong giỏ hàng!</h4>
+                <h4 style="color: #4a5568">No products were found in the shopping cart!!</h4>
             </div>
         </section>
     @endif
+
 @endsection
 

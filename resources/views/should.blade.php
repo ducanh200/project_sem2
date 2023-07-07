@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <h3 style="color: #4a5568;text-align: center;margin-bottom: 50px;margin-top: 50px">Bạn phải <a href="{{"/login"}}">đăng nhập</a> trước khi xem hóa đơn hoặc mua hàng!</h3>
+    <h3 style="color: #4a5568;text-align: center;margin-bottom: 50px;margin-top: 50px">You must be <a href="{{"/login"}}">logged in</a> before viewing an invoice or making a purchase!</h3>
 
 @endsection
 <style>

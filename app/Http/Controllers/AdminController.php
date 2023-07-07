@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -14,12 +15,82 @@ use Illuminate\Support\Str;
 class AdminController extends Controller
 {
     public function dashboard(){
-        return view("admin.dashboard");
+        $order = Order::all();
+        $orders = Order::where('status', 0)->get();
+        $sumtotal = Order::where('status', 4)->sum('total');
+        $user = User::all()->count();
+        return view("admin.dashboard",[
+            "order"=>$order,
+            "user"=>$user,
+            "orders"=>$orders,
+            "sumtotal"=>$sumtotal,
+        ]);
     }
 
     public function orders(){
-        $orders = Order::orderBy("id","desc")->paginate(100);
+        $orders = Order::all();
         return view("admin.orders",[
+            "orders"=>$orders
+        ]);
+    }
+    public function newOrders(){
+        $orders = Order::where('status', 0)->get();
+        return view("admin.new_orders",[
+            "orders"=>$orders
+        ]);
+    }
+
+    public function order_1(){
+        $orders = Order::where('status', 1)->get();
+        return view("admin.orders_1",[
+            "orders"=>$orders
+        ]);
+    }
+    public function order_2(){
+        $orders = Order::where('status', 2)->get();
+        return view("admin.orders_2",[
+            "orders"=>$orders
+        ]);
+    }
+    public function order_3(){
+        $orders = Order::where('status', 3)->get();
+        return view("admin.orders_3",[
+            "orders"=>$orders
+        ]);
+    }
+    public function order_4(){
+        $orders = Order::where('status', 4)->get();
+        return view("admin.orders_4",[
+            "orders"=>$orders
+        ]);
+    }
+    public function order_5(){
+        $orders = Order::where('status', 5)->get();
+        return view("admin.orders_5",[
+            "orders"=>$orders
+        ]);
+    }
+    public function order_6(){
+        $orders = Order::where('status', 6)->get();
+        return view("admin.orders_6",[
+            "orders"=>$orders
+        ]);
+    }
+    public function order_7(){
+        $orders = Order::where('status', 7)->get();
+        return view("admin.orders_7",[
+            "orders"=>$orders
+        ]);
+    }
+    public function order_8(){
+        $orders = Order::where('status', 8)->get();
+        return view("admin.orders_8",[
+            "orders"=>$orders
+        ]);
+    }
+    public function order_9(){
+        $orders = Order::where('status', 9)->get();
+        return view("admin.orders_9",[
             "orders"=>$orders
         ]);
     }
@@ -32,15 +103,42 @@ class AdminController extends Controller
     }
 
     public function products(){
+        $categories = Category::limit(4)->get();
         $products = Product::orderBy("id","desc")->limit(session("length"))->get();
         return view("admin.products",[
-            "products"=>$products
+            "products"=>$products,
+            "categories"=>$categories,
+        ]);
+    }
+
+    public function products_category(Category $category){
+        $categories = Category::limit(4)->get();
+        $products = Product::where("category_id",$category->id)->get();
+        return view("admin.product_category",[
+            "products"=>$products,
+            "categories"=>$categories,
+            "category"=>$category
         ]);
     }
 
 
     //Gửi tới gmail khách hàng
-    public function confirm(Order $order){
+    public function confirm(Order $order,Product $product){
+        foreach ($order->products as $item) {
+            $buy_order = $item->pivot->buy_qty;
+
+            if ($item->qty >= $buy_order) {
+                // Trừ số lượng sản phẩm đã mua khỏi số lượng hiện có
+                $new_quantity = $item->qty - $buy_order;
+
+                // Cập nhật số lượng mới vào cơ sở dữ liệu
+                $item->qty = $new_quantity;
+                $item->save();
+            } else {
+                // Xử lý khi số lượng sản phẩm không đủ để đáp ứng yêu cầu đặt hàng
+            }
+        }
+
         //cập nhật status của order thành 1 (confirm)
         $order->update(["status"=>1]);
         //gửi email cho khách báo đơn đã được chuyển trạng thái
@@ -78,6 +176,28 @@ class AdminController extends Controller
         return redirect()->to("/admin/orders/".$order->id);
     }
 
+    public function returnConfirmed(Order $order){
+        $order->update(["status"=>7]);
+        //gửi email cho khách báo đơn đã được chuyển trạng thái
+        Mail::to($order->email)->send(new OrderMail($order));
+        return redirect()->to("/admin/orders/".$order->id);
+    }
+
+    public function returnFailed(Order $order){
+        $order->update(["status"=>8]);
+        $order->update(["is_paid"=>1]);
+        //gửi email cho khách báo đơn đã được chuyển trạng thái
+        Mail::to($order->email)->send(new OrderMail($order));
+        return redirect()->to("/admin/orders/".$order->id);
+    }
+
+    public function returnCompleted(Order $order){
+        $order->update(["status"=>8]);
+        $order->update(["is_paid"=>1]);
+        //gửi email cho khách báo đơn đã được chuyển trạng thái
+        Mail::to($order->email)->send(new OrderMail($order));
+        return redirect()->to("/admin/orders/".$order->id);
+    }
     public function productCreate(){
         $categories = Category::all();
         return view('admin.product_form',[
@@ -166,6 +286,12 @@ class AdminController extends Controller
         return redirect()->to("/admin/products");
     }
 
+    public function users(){
+        $users = User::all();
+        return view("/admin/users",[
+           "users"=>$users
+        ]);
+    }
 
     public function events()
     {
@@ -189,11 +315,16 @@ class AdminController extends Controller
         $event->delete();
         return redirect()->to("/admin/events");
     }
+    public function blockUser(User $user){
+        $user->delete();
+        return redirect()->to("/admin/users");
+    }
     public function eventUpdate(Request $request,Event $event){
 
         $request->validate([
             "name" => "required",
             "donor" => "required",
+            "contact" => "required",
             "address"=>"required",
             "description"=>"required",
             "begin" => "required",
@@ -222,6 +353,7 @@ class AdminController extends Controller
         }
         $event->name = $request->get("name");
         $event->donor = $request->get("donor");
+        $event->contact = $request->get("contact");
         $event->address = $request->get("address");
         $event->description = $request->get("description");
         $event->begin = $request->get("begin");
@@ -236,6 +368,7 @@ class AdminController extends Controller
         $request->validate([
             "name" => "required",
             "donor" => "required",
+            "contact" => "required",
             "address" => "required",
             "begin" => "required",
             "description"=>"required",
@@ -255,6 +388,7 @@ class AdminController extends Controller
         Event::create([
             "name" => $request->get("name"),
             "donor" => $request->get("donor"),
+            "contact" => $request->get("contact"),
             "address" => $request->get("address"),
             "description"=>$request->get("description"),
             "begin" => $request->get("begin"),

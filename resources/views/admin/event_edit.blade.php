@@ -20,6 +20,10 @@
             <input type="file" name="thumbnail" class="form-control-file" id="exampleFormControlFile1">
         </div>
         <div class="form-group">
+            <label for="exampleFormControlInput1">Contact</label>
+            <input name="contact" type="text"  class="form-control" placeholder="" value="{{$event->contact}}">
+        </div>
+        <div class="form-group">
             <label for="exampleFormControlInput1">Address</label>
             <input name="address" type="text"  class="form-control" placeholder="" value="{{$event->address}}">
         </div>

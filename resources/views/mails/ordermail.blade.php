@@ -4,8 +4,9 @@
 <table style="max-width:670px;margin:50px auto 10px;background-color:#fff;padding:50px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); border-top: solid 10px green;">
     <thead>
     <tr>
-        <th style="text-align:left;">
-            <b style="font-size: 20px">HEALTHY FOOD</b>
+        <th style="text-align:left;height: 160px;width: 500px">
+            <img style="max-width: 200px;" src="https://fbcd.co/images/products/75ff08c4edd77315ff923c0a8ac6c413_resize.png" >
+            <b style="font-size: 20px;text-align: center;margin-bottom: 30px;margin-top: 0;margin-left: 25px">HEALTHY FOOD</b>
         </th>
     </tr>
     </thead>
@@ -23,12 +24,19 @@
                         @case(3)<span class="text text-warning">Shipped</span>@break
                         @case(4)<span class="text text-success">Completed</span>@break
                         @case(5)<span class="text text-warning">Cancel</span>@break
+                        @case(6)<span class="text text-danger">Pending Returns Confirm</span>
+                        @case(7)<span class="text text-blue">Return Confirmed</span>@break
+                        @case(8)<span class="text text-success">Return Completed</span>@break
+                        @case(9)<span class="text text-success">Completed <br>(<b style="color: #c82333">Return failed</b>)</span>@break
+
                     @endswitch
                 </b></p>
             <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Price total</span> ${{$order->total}}</p>
             <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Is Paid</span>
                 @if($order->is_paid || $order->status==3)
                     <b style="color: #2ca02c"><span class="text-success">Paid</span></b>
+                @elseif($order->is_paid || $order->status==8)
+                    <b style="color: #11ab1d"><span class="text-success">refunded</span></b>
                 @else
                     <b style="color: #e50606"><span class="text-danger">unPaid</span></b>
                 @endif

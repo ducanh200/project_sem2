@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <body>
+
     <div class="thank">
         <h1 style="text-align: center;color: #2ca02c">Cảm ơn bạn đã mua hàng!</h1>
 
@@ -23,6 +23,9 @@
         <a href="{{url("/invoice",[$order->id])}}" class="btn btn-outline-primary">
             Order Details
         </a>
+        <a href="{{url("/ordered")}}" class="btn btn-outline-primary">
+            Order History
+        </a>
     </div>
 @endsection
     <style>
@@ -30,5 +33,8 @@
             text-align: center;
             margin-bottom: 50px;
             margin-top: 20px;
+        }
+        .thank a{
+            margin: 10px;
         }
     </style>
