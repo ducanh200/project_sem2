@@ -9,7 +9,7 @@
                 <span class="price">$10 <a href="#">now $5 only</a></span>
                 <br>
                 <br>
-                <button style="background-color: #4eb256;border: 0px"><a style="color: black" href="{{url("/shop")}}">Shop now</a> </button>
+                <button style="background-color: #82ae46;border: 0px"><a style="color: black" href="{{url("/shop")}}">Shop now</a> </button>
             </div>
         </div>
     </div>

@@ -71,6 +71,8 @@ Route::prefix("/admin")->middleware(["auth","admin"])->group(function (){
     Route::get("/orders/returnfailed/{order}",[\App\Http\Controllers\AdminController::class,"returnFailed"]);
     Route::get("/orders/returnconfirm/{order}",[\App\Http\Controllers\AdminController::class,"returnConfirmed"]);
     Route::get("/orders/returncomplete/{order}",[\App\Http\Controllers\AdminController::class,"returnCompleted"]);
+    Route::get("/change_password/{user}",[\App\Http\Controllers\WebController::class,"changePassword"]);
+    Route::post("/change_password/{user}",[\App\Http\Controllers\WebController::class,"savePassword"]);
 
     Route::get("/products",[\App\Http\Controllers\AdminController::class,"products"]);
     Route::get("/products/create",[\App\Http\Controllers\AdminController::class,"productCreate"]);

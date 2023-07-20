@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         @if($product->qty >0)
-                        <button type="submit" class="primary-btn">ADD TO CARD</button>
+                        <button type="submit" class="primary-btn">ADD TO CART</button>
                         @else
                         @endif
                     </form>

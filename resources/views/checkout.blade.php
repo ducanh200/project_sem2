@@ -129,17 +129,6 @@
                                         <div class="col-md-12">
                                             <div class="radio">
                                                 <label for="COD">
-                                                    <input name="payment_method" type="radio" id="payment"
-                                                           value="VN PAY">
-                                                    <span class="checkmark">VN PAY</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="radio">
-                                                <label for="COD">
                                                     <input name="payment_method" type="radio" id="COD" value="COD">
                                                     <span class="checkmark">COD</span>
                                                 </label>
@@ -157,16 +146,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" value="" class="mr-2"> I have read and
-                                                    accept the terms and conditions</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button style="background-color: #2ca02c;border: #2ca02c solid 0" type="submit"
-                                            class="site-btn">PLACE ORDER
+                                    <button style="background-color:#82ae46;border: #82ae46 solid 0;height: 50px;border-radius: 15px" type="submit"
+                                            class="site-btn"><b style="color: white">PLACE ORDER</b>
                                     </button>
                                 </div>
                             </div>

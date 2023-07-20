@@ -11,10 +11,124 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
     public function dashboard(){
+//        $x=Order::whereMonth("created_at",6)->where("status",4)->count();
+        $x1=Order::whereMonth("created_at",1)->where("status",4)->sum("total");
+        $x2=Order::whereMonth("created_at",2)->where("status",4)->sum("total");
+        $x3=Order::whereMonth("created_at",3)->where("status",4)->sum("total");
+        $x4=Order::whereMonth("created_at",4)->where("status",4)->sum("total");
+        $x5=Order::whereMonth("created_at",5)->where("status",4)->sum("total");
+        $x6=Order::whereMonth("created_at",6)->where("status",4)->sum("total");
+        $x7=Order::whereMonth("created_at",7)->where("status",4)->sum("total");
+        $x8=Order::whereMonth("created_at",8)->where("status",4)->sum("total");
+        $x9=Order::whereMonth("created_at",9)->where("status",4)->sum("total");
+        $x10=Order::whereMonth("created_at",10)->where("status",4)->sum("total");
+        $x11=Order::whereMonth("created_at",11)->where("status",4)->sum("total");
+        $x12=Order::whereMonth("created_at",12)->where("status",4)->sum("total");
+
+        $now = Carbon::now();
+        $now = Order::whereMonth('created_at', $now)->where('status', 4)->sum('total');
+
+
+
+        $d1 = Carbon::now()->format('Y-m-d');
+        $d2 = Carbon::now()->subDay(1)->format('Y-m-d');
+        $d3 = Carbon::now()->subDay(2)->format('Y-m-d');
+        $d4 = Carbon::now()->subDay(3)->format('Y-m-d');
+        $d5 = Carbon::now()->subDay(4)->format('Y-m-d');
+        $d6 = Carbon::now()->subDay(5)->format('Y-m-d');
+        $d7 = Carbon::now()->subDay(6)->format('Y-m-d');
+        $d8 = Carbon::now()->subDay(7)->format('Y-m-d');
+        $d9 = Carbon::now()->subDay(8)->format('Y-m-d');
+        $d10 = Carbon::now()->subDay(9)->format('Y-m-d');
+
+
+
+        $d1 = Order::whereDate('created_at', $d1)->where('status', 4)->sum('total');
+        $d2 = Order::whereDate('created_at', $d2)->where('status', 4)->sum('total');
+        $d3 = Order::whereDate('created_at', $d3)->where('status', 4)->sum('total');
+        $d4 = Order::whereDate('created_at', $d4)->where('status', 4)->sum('total');
+        $d5 = Order::whereDate('created_at', $d5)->where('status', 4)->sum('total');
+        $d6 = Order::whereDate('created_at', $d6)->where('status', 4)->sum('total');
+        $d7 = Order::whereDate('created_at', $d7)->where('status', 4)->sum('total');
+        $d8 = Order::whereDate('created_at', $d8)->where('status', 4)->sum('total');
+        $d9 = Order::whereDate('created_at', $d9)->where('status', 4)->sum('total');
+        $d10 = Order::whereDate('created_at', $d10)->where('status', 4)->sum('total');
+
+        $n1 = Carbon::now();
+        $n2 = Carbon::now()->subDay(1);
+        $n3 = Carbon::now()->subDay(2);
+        $n4 = Carbon::now()->subDay(3);
+        $n5 = Carbon::now()->subDay(4);
+        $n6 = Carbon::now()->subDay(5);
+        $n7 = Carbon::now()->subDay(6);
+        $n8 = Carbon::now()->subDay(7);
+        $n9 = Carbon::now()->subDay(8);
+        $n10 = Carbon::now()->subDay(9);
+
+        $n1 = $n1->format('d');
+        $n2 = $n2->format('d');
+        $n3 = $n3->format('d');
+        $n4 = $n4->format('d');
+        $n5 = $n5->format('d');
+        $n6 = $n6->format('d');
+        $n7 = $n7->format('d');
+        $n8 = $n8->format('d');
+        $n9 = $n9->format('d');
+        $n10 = $n10->format('d');
+
+        $c1 = Carbon::now()->format('Y-m-d');
+        $c2 = Carbon::now()->subDay(1)->format('Y-m-d');
+        $c3 = Carbon::now()->subDay(2)->format('Y-m-d');
+        $c4 = Carbon::now()->subDay(3)->format('Y-m-d');
+        $c5 = Carbon::now()->subDay(4)->format('Y-m-d');
+        $c6 = Carbon::now()->subDay(5)->format('Y-m-d');
+        $c7 = Carbon::now()->subDay(6)->format('Y-m-d');
+        $c8 = Carbon::now()->subDay(7)->format('Y-m-d');
+        $c9 = Carbon::now()->subDay(8)->format('Y-m-d');
+        $c10 = Carbon::now()->subDay(9)->format('Y-m-d');
+
+        $c1 = Order::whereDate('created_at', $c1)->count();
+        $c2 = Order::whereDate('created_at', $c2)->count();
+        $c3 = Order::whereDate('created_at', $c3)->count();
+        $c4 = Order::whereDate('created_at', $c4)->count();
+        $c5 = Order::whereDate('created_at', $c5)->count();
+        $c6 = Order::whereDate('created_at', $c6)->count();
+        $c7 = Order::whereDate('created_at', $c7)->count();
+        $c8 = Order::whereDate('created_at', $c8)->count();
+        $c9 = Order::whereDate('created_at', $c9)->count();
+        $c10 = Order::whereDate('created_at', $c10)->count();
+
+
+        $s1 = Carbon::now()->format('Y-m-d');
+        $s2 = Carbon::now()->subDay(1)->format('Y-m-d');
+        $s3 = Carbon::now()->subDay(2)->format('Y-m-d');
+        $s4 = Carbon::now()->subDay(3)->format('Y-m-d');
+        $s5 = Carbon::now()->subDay(4)->format('Y-m-d');
+        $s6 = Carbon::now()->subDay(5)->format('Y-m-d');
+        $s7 = Carbon::now()->subDay(6)->format('Y-m-d');
+        $s8 = Carbon::now()->subDay(7)->format('Y-m-d');
+        $s9 = Carbon::now()->subDay(8)->format('Y-m-d');
+        $s10 = Carbon::now()->subDay(9)->format('Y-m-d');
+
+        $s1 = Order::whereDate('created_at', $s1)->get()->sum('total');
+        $s2 = Order::whereDate('created_at', $s2)->get()->sum('total');
+        $s3 = Order::whereDate('created_at', $s3)->get()->sum('total');
+        $s4 = Order::whereDate('created_at', $s4)->get()->sum('total');
+        $s5 = Order::whereDate('created_at', $s5)->get()->sum('total');
+        $s6 = Order::whereDate('created_at', $s6)->get()->sum('total');
+        $s7 = Order::whereDate('created_at', $s7)->get()->sum('total');
+        $s8 = Order::whereDate('created_at', $s8)->get()->sum('total');
+        $s9 = Order::whereDate('created_at', $s9)->get()->sum('total');
+        $s10 = Order::whereDate('created_at', $s10)->get()->sum('total');
+
+
+//        $arr=[$x1,$x2,$x3,$x4,$x5,$x6,$x7,$x8,$x9,$x10,$x11,$x12];
+//        dd($arr);
         $order = Order::all();
         $orders = Order::where('status', 0)->get();
         $sumtotal = Order::where('status', 4)->sum('total');
@@ -24,11 +138,64 @@ class AdminController extends Controller
             "user"=>$user,
             "orders"=>$orders,
             "sumtotal"=>$sumtotal,
+            "x1"=>$x1,
+            "x2"=>$x2,
+            "x3"=>$x3,
+            "x4"=>$x4,
+            "x5"=>$x5,
+            "x6"=>$x6,
+            "x7"=>$x7,
+            "x8"=>$x8,
+            "x9"=>$x9,
+            "x10"=>$x10,
+            "x11"=>$x11,
+            "x12"=>$x12,
+            "d1"=>$d1,
+            "d2"=>$d2,
+            "d3"=>$d3,
+            "d4"=>$d4,
+            "d5"=>$d5,
+            "d6"=>$d6,
+            "d7"=>$d7,
+            "d8"=>$d8,
+            "d9"=>$d9,
+            "d10"=>$d10,
+            "n1"=>$n1,
+            "n2"=>$n2,
+            "n3"=>$n3,
+            "n4"=>$n4,
+            "n5"=>$n5,
+            "n6"=>$n6,
+            "n7"=>$n7,
+            "n8"=>$n8,
+            "n9"=>$n9,
+            "n10"=>$n10,
+            "now"=>$now,
+            "c1"=>$c1,
+            "c2"=>$c2,
+            "c3"=>$c3,
+            "c4"=>$c4,
+            "c5"=>$c5,
+            "c6"=>$c6,
+            "c7"=>$c7,
+            "c8"=>$c8,
+            "c9"=>$c9,
+            "c10"=>$c10,
+            "s1"=>$s1,
+            "s2"=>$s2,
+            "s3"=>$s3,
+            "s4"=>$s4,
+            "s5"=>$s5,
+            "s6"=>$s6,
+            "s7"=>$s7,
+            "s8"=>$s8,
+            "s9"=>$s9,
+            "s10"=>$s10,
         ]);
     }
 
     public function orders(){
-        $orders = Order::all();
+        $orders = Order::orderBy('id', 'desc')->get();
         return view("admin.orders",[
             "orders"=>$orders
         ]);
@@ -124,20 +291,20 @@ class AdminController extends Controller
 
     //Gửi tới gmail khách hàng
     public function confirm(Order $order,Product $product){
-        foreach ($order->products as $item) {
-            $buy_order = $item->pivot->buy_qty;
-
-            if ($item->qty >= $buy_order) {
-                // Trừ số lượng sản phẩm đã mua khỏi số lượng hiện có
-                $new_quantity = $item->qty - $buy_order;
-
-                // Cập nhật số lượng mới vào cơ sở dữ liệu
-                $item->qty = $new_quantity;
-                $item->save();
-            } else {
-                // Xử lý khi số lượng sản phẩm không đủ để đáp ứng yêu cầu đặt hàng
-            }
-        }
+//        foreach ($order->products as $item) {
+//            $buy_order = $item->pivot->buy_qty;
+//
+//            if ($item->qty >= $buy_order) {
+//                // Trừ số lượng sản phẩm đã mua khỏi số lượng hiện có
+//                $new_quantity = $item->qty - $buy_order;
+//
+//                // Cập nhật số lượng mới vào cơ sở dữ liệu
+//                $item->qty = $new_quantity;
+//                $item->save();
+//            } else {
+//                // Xử lý khi số lượng sản phẩm không đủ để đáp ứng yêu cầu đặt hàng
+//            }
+//        }
 
         //cập nhật status của order thành 1 (confirm)
         $order->update(["status"=>1]);

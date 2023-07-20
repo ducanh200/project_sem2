@@ -69,6 +69,7 @@
                 <a href="{{url("/login")}}"><i class="fa fa-user"></i> Login</a>
             @endguest
             @auth()
+{{--                    <a href="{{url("/account",auth()->user()->name)}}"><i class="fa fa-user"></i> {{auth()->user()->name}}</a>--}}
                 <a href="#"><i class="fa fa-user"></i> {{auth()->user()->name}}</a>
                 <form action="{{route("logout")}}" method="post">
                     @csrf

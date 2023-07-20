@@ -127,7 +127,20 @@ class WebController extends Controller
     public function cancelOrder(Order $order){
         //cập nhật status của order thành 1 (cancel)
         $order->update(["status"=>5]);
+                foreach ($order->products as $item) {
+            $buy_order = $item->pivot->buy_qty;
 
+            if ($item->qty >= $buy_order) {
+                // Trừ số lượng sản phẩm đã mua khỏi số lượng hiện có
+                $new_quantity = $item->qty + $buy_order;
+
+                // Cập nhật số lượng mới vào cơ sở dữ liệu
+                $item->qty = $new_quantity;
+                $item->save();
+            } else {
+                // Xử lý khi số lượng sản phẩm không đủ để đáp ứng yêu cầu đặt hàng
+            }
+        }
         Mail::to("anguyenduc075@gmail.com")->send(new OrderMail($order));
         Mail::to($order->email)->send(new OrderMail($order));
         return redirect()->to("/ordered");
@@ -433,6 +446,31 @@ class WebController extends Controller
         ]);
     }
 
+    public function savePassword(Request $request)
+    {
+        $user = Auth::user();
 
+        // Kiểm tra mật khẩu hiện tại
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'Mật khẩu hiện tại không đúng.');
+        }
+
+        // Kiểm tra tính hợp lệ của mật khẩu mới và xác nhận mật khẩu mới
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // Cập nhật mật khẩu mới
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect('/')->with('success', 'Mật khẩu đã được thay đổi thành công.');
+    }
+    public function changePassword(){
+        $user = Auth::user();
+        return view("change_password",[
+            "user"=>$user
+        ]);
+    }
 
 }

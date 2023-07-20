@@ -34,8 +34,8 @@
                         $remainingTime = $currentDateTime->diff($futureDateTime);
                     @endphp
 
-                    @if ($remainingTime->days <= 0 && $remainingTime->h <= 0 && $remainingTime->i <= 0)
-                        <h5 style="color: #f60404">Thời gian đăng kí đã kết thúc</h5>
+                    @if ($futureDateTime <= $currentDateTime)
+                        <h5 style="color: #e50606">Thời gian đăng kí đã kết thúc !</h5>
                     @else
                     <h5 style="color: #f60404">Thời gian đăng kí còn lại :
 

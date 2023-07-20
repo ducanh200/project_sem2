@@ -67,7 +67,7 @@
                             <tr>
                                 <th>Qty</th>
                                 <th>Product</th>
-                                <th>Product</th>
+                                <th>Product_id</th>
                                 <th>Serial #</th>
                                 <th>Subtotal</th>
                             </tr>
